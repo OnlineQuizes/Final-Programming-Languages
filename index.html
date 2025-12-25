@@ -388,6 +388,16 @@
     font-family: 'Consolas', 'Courier New', monospace;
 }
 
+/* Fix: Prevents code from overflowing on mobile */
+.code-block pre, .grammar-block pre {
+    white-space: pre-wrap !important;       /* Wraps text to next line */
+    word-wrap: break-word !important;       /* Breaks long words if necessary */
+    word-break: break-word !important;
+    overflow-x: hidden;                     /* Removes horizontal scroll */
+}
+
+
+
     .code-block pre {
         margin: 0;
         white-space: pre-wrap;
@@ -2221,7 +2231,7 @@
     <div class="options">
         <label><input type="radio" name="q83" value="a"> a) Assigning the value '0' to an integer variable</label>
         <label><input type="radio" name="q83" value="b"> b) Assigning the value '0.0' to a floating variable</label>
-        <label><input type="radio" name="q83" value="c"> c) Assigning the value '1234567891' to an integer variable</label>
+        <label><input type="radio" name="q83" value="c"> c) Assigning the value '12345L' to an integer variable</label>
         <label><input type="radio" name="q83" value="d"> d) Specifying the range of possible integer values to an integer variable</label>
     </div>
     <div class="answer-box" id="answer83" data-correct-answer="d" data-explanation="Implementation time bindings include decisions about how types are represented in memory (e.g., 32-bit vs 64-bit integers).">
