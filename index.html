@@ -634,16 +634,18 @@
         font-weight: 500;
     }
 
-    /* Recordings Section */
-    .recordings-section {
-        background: var(--glass-bg);
-        border: 1px solid var(--glass-border);
-        border-radius: 15px;
-        padding: 1.5rem;
-        margin-top: 2rem;
-        box-shadow: var(--glass-shadow);
-        display: none;
-    }
+.recordings-section {
+    direction: rtl;
+    text-align: right;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-top: 0.5rem;      /* قللنا الهامش العلوي ليكون قريباً من الأزرار */
+    margin-bottom: 1.5rem;   /* أضفنا هامشاً سفلياً ليفصله عن عرض السلايد */
+    box-shadow: var(--glass-shadow);
+    display: none;
+}
 
     .recordings-section h3 {
         color: var(--primary-color);
@@ -654,9 +656,6 @@
         gap: 10px;
     }
 
-    .recordings-section h3::before {
-        content: '🎥';
-    }
 
     .recording-links {
         display: flex;
@@ -774,6 +773,8 @@
     }
 
     .mobile-recordings {
+	direction: rtl;          /* يجعل الاتجاه من اليمين لليسار */
+    text-align: right;       /* يحاذي النص والروابط لليمين */
         width: 100%;
         margin-top: 1rem;
         padding: 1rem;
@@ -2858,6 +2859,16 @@ void main() {
                 </button>
             </div>
 
+<!-- Update the recordings section in the slides section -->
+<div class="recordings-container">
+    <div class="recordings-section" id="recordings-desktop">
+        <h3>🎥 تسجيلات الدكتور</h3>
+        <div class="recording-links" id="recordings-list-desktop">
+            <!-- Recording links will be dynamically inserted -->
+        </div>
+    </div>
+</div>
+
             <!-- Desktop PDF Viewer -->
             <div class="pdf-viewer-container desktop-viewer">
                 <div class="pdf-viewer-header">
@@ -2875,15 +2886,7 @@ void main() {
                 </div>
             </div>
 
-<!-- Update the recordings section in the slides section -->
-<div class="recordings-container">
-    <div class="recordings-section" id="recordings-desktop">
-        <h3>🎥 تسجيلات الدكتور</h3>
-        <div class="recording-links" id="recordings-list-desktop">
-            <!-- Recording links will be dynamically inserted -->
-        </div>
-    </div>
-</div>
+
 
             <!-- Mobile PDF List -->
             <div class="mobile-pdf-list">
@@ -2912,7 +2915,7 @@ void main() {
                     </div>
                     <div class="mobile-pdf-actions">
                         <button class="mobile-pdf-btn open-btn" onclick="openPdfMobile('Lecture3.pdf')">Open PDF</button>
-                        <button class="mobile-pdf-btn record-btn" onclick="toggleMobileRecordings(1)">تسجيلات</button>
+                        <button class="mobile-pdf-btn record-btn" onclick="toggleMobileRecordings(1)">التسجيلات</button>
                     </div>
                     <div class="mobile-recordings" id="mobile-recordings-1">
                         <a href="https://vento.so/view/46fd4f5d-bb3b-416e-83b2-e65db1366297?utm_medium=share" target="_blank" class="recording-link">تسجيل المحاضرة 3</a>
@@ -2930,7 +2933,7 @@ void main() {
                     </div>
                     <div class="mobile-pdf-actions">
                         <button class="mobile-pdf-btn open-btn" onclick="openPdfMobile('Lecture4.pdf')">Open PDF</button>
-                        <button class="mobile-pdf-btn record-btn" onclick="toggleMobileRecordings(2)">تسجيلات</button>
+                        <button class="mobile-pdf-btn record-btn" onclick="toggleMobileRecordings(2)">التسجيلات </button>
                     </div>
                     <div class="mobile-recordings" id="mobile-recordings-2">
                         <a href="https://vento.so/view/3c453f76-23c1-46e8-96c0-f070df2be996?utm_medium=share" target="_blank" class="recording-link">تسجيل المحاضرة 4 - الجزء 1</a>
