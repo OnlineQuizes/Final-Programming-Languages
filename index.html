@@ -1,0 +1,3294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming Languages Final Exam</title>
+    <style>
+    :root {
+        --bg-color: #f8fafc;
+        --text-color: #161b24;
+        --primary-color: #2a676f;
+        --secondary-color: #3a8893;
+        --card-bg: rgba(255, 255, 255, 0.95);
+        --border-color: rgba(224, 224, 224, 0.7);
+        --option-bg: #f8fafc;
+        --option-hover-bg: #e2e8f0;
+        --quiz-header-bg: linear-gradient(135deg, #2a676f 0%, #3a8893 100%);
+        --correct-bg: #e8f5e9;
+        --correct-border: #43a047;
+        --incorrect-bg: #ffebee;
+        --incorrect-border: #e53935;
+        --gradient-color: rgba(42, 103, 111, 0.03);
+        --background-pattern: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%232a676f' fill-opacity='0.05'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/svg%3E");
+        --slide-bg: #ffffff;
+        --slide-header: #2a676f;
+        --slide-border: #d1d5db;
+        --grammar-bg: #f1f5f9;
+        --grammar-border: #cbd5e1;
+        --glass-bg: rgba(42, 103, 111, 0.1);
+        --glass-border: rgba(42, 103, 111, 0.2);
+        --glass-shadow: 0 4px 20px rgba(42, 103, 111, 0.15);
+        --button-primary-bg: linear-gradient(135deg, #2a676f, #3a8893);
+        --button-secondary-bg: linear-gradient(135deg, #a98a50, #c5a66a);
+--code-bg: #f1f5f9;
+--code-text: #1e293b;
+        --expl-bg: #fffde7;
+        --expl-border: #fbc02d;
+        --expl-text: #5d4037;
+    }
+
+    [data-theme="dark"] {
+        --bg-color: #1a202c;
+        --text-color: #e2e8f0;
+        --primary-color: #38b2ac;
+        --secondary-color: #2a676f;
+        --card-bg: rgba(26, 32, 44, 0.95);
+        --border-color: rgba(74, 85, 104, 0.7);
+        --option-bg: rgba(45, 55, 72, 0.5);
+        --option-hover-bg: rgba(66, 153, 225, 0.1);
+        --quiz-header-bg: linear-gradient(135deg, #2a676f 0%, #3a8893 100%);
+        --correct-bg: rgba(72, 187, 120, 0.1);
+        --correct-border: #48bb78;
+        --incorrect-bg: rgba(245, 101, 101, 0.1);
+        --incorrect-border: #f56565;
+        --gradient-color: transparent;
+        --background-pattern: none;
+        --slide-bg: #2d3748;
+        --slide-header: #38b2ac;
+        --slide-border: #4a5568;
+        --grammar-bg: #4a5568;
+        --grammar-border: #718096;
+        --glass-bg: rgba(56, 178, 172, 0.1);
+        --glass-border: rgba(56, 178, 172, 0.2);
+        --glass-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        --button-primary-bg: linear-gradient(135deg, #38b2ac, #2a676f);
+        --button-secondary-bg: linear-gradient(135deg, #f6ad55, #ed8936);
+--code-bg: #0f172a;
+--code-text: #e2e8f0;
+        --expl-bg: rgba(251, 192, 45, 0.15);
+        --expl-border: #fdd835;
+        --expl-text: #fff9c4;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+
+    body {
+        background-color: var(--bg-color);
+        background-image: 
+            linear-gradient(to right, var(--gradient-color) 1px, transparent 1px),
+            linear-gradient(to bottom, var(--gradient-color) 1px, transparent 1px),
+            var(--background-pattern);
+        background-size: 
+            40px 40px,
+            40px 40px,
+            52px 26px;
+        color: var(--text-color);
+        transition: background-color 0.3s ease, color 0.3s ease;
+        line-height: 1.6;
+        min-height: 100vh;
+    }
+
+    .quiz-container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: var(--card-bg);
+        border-radius: 20px;
+        box-shadow: 0 15px 50px rgba(0,0,0,0.1);
+        border: 1px solid var(--border-color);
+        backdrop-filter: blur(10px);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .quiz-container::before {
+        content: '💻🧠📚';
+        position: absolute;
+        top: -50px;
+        right: -50px;
+        font-size: 120px;
+        opacity: 0.05;
+        transform: rotate(15deg);
+        z-index: 0;
+    }
+
+    .quiz-header {
+        text-align: center;
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        color: white;
+        padding: 1.5rem;
+        background: var(--quiz-header-bg);
+        border-radius: 15px;
+        box-shadow: 0 6px 20px rgba(42, 103, 111, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .quiz-header::after {
+        content: '📘';
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0.15;
+        font-size: 3rem;
+    }
+
+    .quiz-subtitle {
+        text-align: center;
+        font-size: 1.2rem;
+        color: var(--text-color);
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        background: var(--glass-bg);
+        border-radius: 10px;
+        border-left: 5px solid var(--primary-color);
+    }
+
+    .controls {
+        text-align: center;
+        margin-bottom: 2rem;
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        padding: 1.5rem;
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        border: 1px solid var(--glass-border);
+        box-shadow: var(--glass-shadow);
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.9rem 1.8rem;
+        background: var(--button-primary-bg);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        gap: 8px;
+        box-shadow: 0 4px 12px rgba(42, 103, 111, 0.2);
+        position: relative;
+        overflow: hidden;
+        min-width: 160px;
+    }
+
+    .btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: 0.5s;
+    }
+
+    .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(42, 103, 111, 0.3);
+    }
+
+    .btn:hover::before {
+        left: 100%;
+    }
+
+    .btn-secondary {
+        background: var(--button-secondary-bg);
+    }
+
+    .btn-icon {
+        font-size: 1.1rem;
+    }
+
+	/* Question Group Styles */
+/* Question Group Styles - Theme Aware */
+.question-group {
+    margin-bottom: 3rem;
+    padding: 2rem;
+    background: var(--card-bg);
+    border: 2px solid var(--primary-color);
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.grouped-questions .question {
+    margin-bottom: 1.5rem; /* Restored spacing */
+    padding: 1.8rem;
+    background: var(--card-bg); /* Use same card background */
+    border: 1px solid var(--border-color); /* Same border weight */
+    border-radius: 15px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.grouped-questions .question:hover {
+    transform: translateX(5px);
+    border-color: var(--primary-color);
+    box-shadow: 6px 6px 20px rgba(42, 103, 111, 0.1);
+}
+
+
+.question-group::before {
+    content: '📚';
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 2.5rem;
+    opacity: 0.1;
+}
+
+.group-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 3px dashed var(--primary-color);
+}
+
+.group-header h3 {
+    color: var(--primary-color);
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+}
+
+.grouped-questions {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+
+
+/* Fix: Makes grouped question text identical to standard questions */
+.grouped-questions .question h4 {
+    color: var(--primary-color) !important; /* Matches standard question color */
+    font-size: 1.3rem !important;           /* Matches standard question size */
+    font-weight: 700;                       /* Matches standard question weight */
+    margin-bottom: 1rem;
+    padding-left: 10px;
+    border-left: 4px solid var(--primary-color); /* Matches standard question border */
+}
+
+
+    /* Question Styles */
+    .question {
+        margin-bottom: 2.5rem;
+        padding: 1.8rem;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 15px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: visible;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .question:hover {
+        transform: translateX(5px);
+        border-color: var(--primary-color);
+        box-shadow: 6px 6px 20px rgba(42, 103, 111, 0.1);
+    }
+
+    .question h3 {
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+        position: relative;
+        padding-left: 10px;
+        border-left: 4px solid var(--primary-color);
+    }
+
+    .options label {
+        display: flex;
+        align-items: center;
+        padding: 1.1rem;
+        margin: 0.8rem 0;
+        background: var(--option-bg);
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        gap: 12px;
+        border: 2px solid transparent;
+        position: relative;
+        z-index: 2;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .options label:hover {
+        background: var(--option-hover-bg);
+        transform: translateX(5px);
+        box-shadow: 4px 4px 12px rgba(42, 103, 111, 0.1);
+        border-color: var(--primary-color);
+    }
+
+    .options input[type="radio"] {
+        margin-left: 1rem;
+        transform: scale(1.3);
+        accent-color: var(--primary-color);
+        cursor: pointer;
+    }
+
+    .answer-box {
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+        padding: 1.2rem;
+        border-radius: 12px;
+        display: none;
+        animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        font-weight: 500;
+        letter-spacing: 0.3px;
+        position: relative;
+        z-index: 2;
+        border-left: 5px solid;
+        white-space: normal;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .correct {
+        background: var(--correct-bg);
+        border-color: var(--correct-border);
+        color: var(--text-color);
+    }
+
+    .incorrect {
+        background: var(--incorrect-bg);
+        border-color: var(--incorrect-border);
+        color: var(--text-color);
+    }
+
+
+
+
+    /* Code Block Styling */
+/* Update the block styles */
+.code-block, .grammar-block {
+    background: var(--code-bg) !important;
+    color: var(--code-text) !important;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    font-family: 'Consolas', 'Courier New', monospace;
+}
+
+    .code-block pre {
+        margin: 0;
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
+
+    .grammar-block {
+        background: var(--grammar-bg);
+        border: 1px solid var(--grammar-border);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        font-family: 'Consolas', 'Courier New', monospace;
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    /* Explanation Styles */
+    .explanation-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        margin-top: 8px;
+        animation: fadeIn 0.3s ease;
+    }
+
+    .btn-explanation {
+        background: var(--glass-bg);
+        border: 1px solid var(--primary-color);
+        color: var(--primary-color);
+        padding: 6px 14px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .explanation-content {
+        background: var(--expl-bg);
+        border-left: 4px solid var(--expl-border);
+        color: var(--expl-text);
+        border-radius: 8px;
+        padding: 15px;
+        width: 100%;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        font-size: 0.95rem;
+        line-height: 1.6;
+        position: relative;
+    }
+
+    .explanation-content::before {
+        content: '💡';
+        margin-right: 8px;
+    }
+
+    .btn-show-correct {
+        background: transparent;
+        border: 1px solid var(--incorrect-border);
+        color: var(--incorrect-border);
+        padding: 6px 14px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-left: 10px;
+        transition: all 0.2s ease;
+        display: inline-block;
+    }
+
+    .btn-show-correct:hover {
+        background: var(--incorrect-bg);
+        transform: translateY(-1px);
+    }
+
+    /* Slides Section */
+    .slides-section {
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 3px dashed var(--primary-color);
+    }
+
+    .slides-header {
+        background: var(--quiz-header-bg);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 15px;
+        margin: 2.5rem 0;
+        font-size: 1.8rem;
+        font-weight: 700;
+        text-align: center;
+        box-shadow: 0 6px 20px rgba(42, 103, 111, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .slides-header::after {
+        content: '📚';
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0.15;
+        font-size: 2.5rem;
+    }
+
+    /* PDF Controls */
+    .pdf-controls {
+        display: flex;
+        justify-content: center;
+        gap: 1.2rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+    }
+
+    .pdf-btn {
+        padding: 0.9rem 1.8rem;
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        border-radius: 10px;
+        color: var(--text-color);
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        backdrop-filter: blur(5px);
+    }
+
+    .pdf-btn:hover {
+        background: var(--button-primary-bg);
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    .pdf-btn.active {
+        background: var(--button-primary-bg);
+        color: white;
+        border-color: transparent;
+        box-shadow: 0 4px 12px rgba(42, 103, 111, 0.3);
+    }
+
+    /* PDF Viewer */
+    .pdf-viewer-container {
+        background: var(--slide-bg);
+        border-radius: 15px;
+        overflow: hidden;
+        margin-bottom: 2rem;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        min-height: 800px;
+        height: 70vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .pdf-viewer-header {
+        background: var(--quiz-header-bg);
+        color: white;
+        padding: 1rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        flex-shrink: 0;
+    }
+
+    .pdf-viewer-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+
+    .pdf-controls-small {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .pdf-nav-btn {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 8px;
+        padding: 0.5rem 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        min-width: 50px;
+    }
+
+    .pdf-nav-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: scale(1.05);
+    }
+
+    .pdf-frame-container {
+        flex-grow: 1;
+        position: relative;
+        overflow: hidden;
+        min-height: 600px;
+    }
+
+    .pdf-frame {
+        width: 100%;
+        height: 100%;
+        border: none;
+        min-height: 600px;
+    }
+
+    .pdf-loading {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: var(--slide-bg);
+        z-index: 10;
+    }
+
+    .pdf-loading-spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid var(--border-color);
+        border-top: 5px solid var(--primary-color);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 1rem;
+    }
+
+    .pdf-loading-text {
+        color: var(--text-color);
+        font-weight: 500;
+    }
+
+    /* Recordings Section */
+    .recordings-section {
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        border-radius: 15px;
+        padding: 1.5rem;
+        margin-top: 2rem;
+        box-shadow: var(--glass-shadow);
+        display: none;
+    }
+
+    .recordings-section h3 {
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .recordings-section h3::before {
+        content: '🎥';
+    }
+
+    .recording-links {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .recording-link {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0.8rem;
+        background: var(--card-bg);
+        border-radius: 8px;
+        text-decoration: none;
+        color: var(--text-color);
+        border: 1px solid var(--border-color);
+        transition: all 0.2s ease;
+    }
+
+    .recording-link:hover {
+        background: var(--option-hover-bg);
+        transform: translateX(5px);
+        border-color: var(--primary-color);
+    }
+
+    .recording-link::before {
+        content: '▶️';
+        font-size: 1.2rem;
+    }
+
+
+
+    /* Mobile PDF List */
+    .mobile-pdf-list {
+        display: none;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .mobile-pdf-item {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 1.2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+    }
+
+    .mobile-pdf-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+
+    .mobile-pdf-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .mobile-pdf-icon {
+        font-size: 2rem;
+    }
+
+    .mobile-pdf-details {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .mobile-pdf-name {
+        font-weight: 600;
+        font-size: 1.1rem;
+        color: var(--text-color);
+    }
+
+    .mobile-pdf-size {
+        font-size: 0.9rem;
+        color: var(--text-color);
+        opacity: 0.7;
+    }
+
+    .mobile-pdf-actions {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .mobile-pdf-btn {
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+    }
+
+    .mobile-pdf-btn.open-btn {
+        background: var(--button-primary-bg);
+        color: white;
+    }
+
+    .mobile-pdf-btn.record-btn {
+        background: var(--button-secondary-bg);
+        color: white;
+    }
+
+    .mobile-pdf-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .mobile-recordings {
+        width: 100%;
+        margin-top: 1rem;
+        padding: 1rem;
+        background: var(--glass-bg);
+        border-radius: 8px;
+        display: none;
+    }
+
+
+
+    /* Progress Bar */
+    .quiz-progress {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding: 1rem;
+        background: var(--glass-bg);
+        border-radius: 10px;
+        border: 1px solid var(--glass-border);
+    }
+
+    .progress-bar {
+        flex-grow: 1;
+        height: 10px;
+        background: var(--border-color);
+        border-radius: 5px;
+        margin: 0 1rem;
+        overflow: hidden;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: var(--primary-color);
+        border-radius: 5px;
+        transition: width 0.3s ease;
+    }
+
+    .progress-text {
+        font-weight: 600;
+        color: var(--primary-color);
+        white-space: nowrap;
+    }
+
+    /* Footer */
+    .footer-note {
+        text-align: center;
+        margin: 3rem 0 1rem;
+        padding: 1.5rem;
+        color: var(--primary-color);
+        font-size: 1.1rem;
+        border-top: 2px solid rgba(42, 103, 111, 0.2);
+        opacity: 0.9;
+        font-weight: 600;
+        background: var(--glass-bg);
+        border-radius: 15px;
+        backdrop-filter: blur(5px);
+    }
+
+    [data-theme="dark"] .footer-note {
+        color: var(--secondary-color);
+        border-color: rgba(169, 138, 80, 0.3);
+    }
+
+    /* Hidden Class */
+    .hidden {
+        display: none;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(15px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+        .quiz-container {
+            margin: 1rem;
+            padding: 1.5rem;
+        }
+        
+        .quiz-header, .slides-header {
+            font-size: 1.7rem;
+            padding: 1.2rem;
+        }
+        
+        .pdf-viewer-container {
+            min-height: 600px;
+            height: 65vh;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .controls {
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 1rem;
+        }
+        
+        .btn {
+            width: auto;
+            flex: 1 1 calc(50% - 10px);
+            margin: 0;
+            min-width: 120px;
+            padding: 0.8rem;
+            font-size: 0.9rem;
+        }
+        
+        .pdf-controls {
+            display: none !important;
+        }
+        
+        .desktop-viewer {
+            display: none !important;
+        }
+        
+        .mobile-pdf-list {
+            display: flex;
+        }
+        
+        .pdf-viewer-container {
+            min-height: 500px;
+            height: 60vh;
+        }
+        
+        .mobile-pdf-item {
+            flex-direction: column;
+            text-align: center;
+            gap: 1rem;
+        }
+        
+        .mobile-pdf-info {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .mobile-pdf-actions {
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .mobile-pdf-btn {
+            flex: 1;
+            max-width: 120px;
+        }
+    }
+
+    @media (min-width: 769px) {
+        .mobile-pdf-list {
+            display: none !important;
+        }
+        
+        .desktop-viewer {
+            display: flex !important;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .quiz-header, .slides-header {
+            font-size: 1.4rem;
+            padding: 1rem;
+        }
+        
+        .pdf-viewer-container {
+            min-height: 400px;
+            height: 55vh;
+        }
+        
+        .pdf-nav-btn {
+            padding: 0.4rem 0.8rem;
+            min-width: 45px;
+        }
+    }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            Programming Languages Final Exam
+        </div>
+        
+        <div class="quiz-subtitle">
+            <strong>Comprehensive Exam</strong> | <strong>All Lectures</strong> | <strong>123 Questions</strong>
+        </div>
+        
+        <div class="quiz-progress">
+            <div class="progress-text">Quiz Progress:</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="quiz-progress" style="width: 0%"></div>
+            </div>
+            <div class="progress-text"><span id="answered-count">0</span>/123 Answered</div>
+        </div>
+        
+        <div class="controls">
+            <button class="btn" onclick="resetQuiz()">
+                <span class="btn-icon">🔄</span> Reset Quiz
+            </button>
+            <button class="btn" onclick="showAllAnswers()">
+                <span class="btn-icon">👁️</span> Show All Answers
+            </button>
+            <button class="btn" onclick="hideAllAnswers()">
+                <span class="btn-icon">🙈</span> Hide All Answers
+            </button>
+            <button class="btn btn-secondary" id="themeToggle" onclick="toggleTheme()">
+                <span class="btn-icon">🌙</span> Dark Mode
+            </button>
+            <button class="btn btn-secondary" id="slidesToggle" onclick="toggleSlides()">
+                <span class="btn-icon">📚</span> سلايدات المادة
+            </button>
+        </div>
+
+        <!-- Questions Section -->
+        <div id="questions-section">
+            <!-- Questions 1-123 will be inserted here -->
+            <!-- Due to space constraints, I'll show the structure for first 5 questions and group 7-11 -->
+            <!-- The complete 123 questions would follow the same pattern -->
+
+            <!-- Question 1 -->
+            <div class="question">
+                <h3>1. Who are the main users of a language definition?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="a"> a) Other language designers</label>
+                    <label><input type="radio" name="q1" value="b"> b) Implementers</label>
+                    <label><input type="radio" name="q1" value="c"> c) Programmers</label>
+                    <label><input type="radio" name="q1" value="d"> d) All of above</label>
+                </div>
+                <div class="answer-box" id="answer1" data-correct-answer="d" data-explanation="Language definitions serve all three groups: designers for reference, implementers for building compilers/interpreters, and programmers for understanding the language.">
+                    Correct Answer: d) All of above<br><br><em>Explanation: Language definitions serve all three groups: designers for reference, implementers for building compilers/interpreters, and programmers for understanding the language.</em>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question">
+                <h3>2. What is a lexeme?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="a"> a) The entire program written by the user</label>
+                    <label><input type="radio" name="q2" value="b"> b) The lowest-level syntactic unit of a language</label>
+                    <label><input type="radio" name="q2" value="c"> c) The highest-level syntactic unit of a language</label>
+                    <label><input type="radio" name="q2" value="d"> d) A comment written by the programmer</label>
+                </div>
+                <div class="answer-box" id="answer2" data-correct-answer="b" data-explanation="A lexeme is the lowest-level syntactic unit, such as identifiers, keywords, operators, and literals that form the basic building blocks of a language.">
+                    Correct Answer: b) The lowest-level syntactic unit of a language<br><br><em>Explanation: A lexeme is the lowest-level syntactic unit, such as identifiers, keywords, operators, and literals that form the basic building blocks of a language.</em>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question">
+                <h3>3. Which of the following is an example of a lexeme?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="a"> a) if, sum</label>
+                    <label><input type="radio" name="q3" value="b"> b) identifier, equal_sign</label>
+                    <label><input type="radio" name="q3" value="c"> c) if, identifier</label>
+                    <label><input type="radio" name="q3" value="d"> d) None of above</label>
+                </div>
+                <div class="answer-box" id="answer3" data-correct-answer="a" data-explanation="'if' and 'sum' are lexemes - 'if' is a keyword lexeme and 'sum' is an identifier lexeme.">
+                    Correct Answer: a) if, sum<br><br><em>Explanation: 'if' and 'sum' are lexemes - 'if' is a keyword lexeme and 'sum' is an identifier lexeme.</em>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question">
+                <h3>4. What is a token?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="a"> a) A category/class of abstraction</label>
+                    <label><input type="radio" name="q4" value="b"> b) A machine instruction</label>
+                    <label><input type="radio" name="q4" value="c"> c) A category/class of lexemes</label>
+                    <label><input type="radio" name="q4" value="d"> d) A variable name only</label>
+                </div>
+                <div class="answer-box" id="answer4" data-correct-answer="c" data-explanation="A token is a category or class that groups similar lexemes together, such as 'identifier' token for all variable names or 'keyword' token for language keywords.">
+                    Correct Answer: c) A category/class of lexemes<br><br><em>Explanation: A token is a category or class that groups similar lexemes together, such as 'identifier' token for all variable names or 'keyword' token for language keywords.</em>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question">
+                <h3>5. Which of the following is an example of a token?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="a"> a) begin</label>
+                    <label><input type="radio" name="q5" value="b"> b) sum</label>
+                    <label><input type="radio" name="q5" value="c"> c) *</label>
+                    <label><input type="radio" name="q5" value="d"> d) identifier</label>
+                </div>
+                <div class="answer-box" id="answer5" data-correct-answer="d" data-explanation="'identifier' is a token category that represents all variable names, while 'begin', 'sum', and '*' are specific lexemes.">
+                    Correct Answer: d) identifier<br><br><em>Explanation: 'identifier' is a token category that represents all variable names, while 'begin', 'sum', and '*' are specific lexemes.</em>
+                </div>
+            </div>
+
+            <!-- Questions 6-122 would follow same pattern -->
+            <!-- Due to character limits, I'll show the grouped questions 7-11 as example -->
+
+            <!-- Question 6 -->
+            <div class="question">
+                <h3>6. What is a sentence (statement)?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q6" value="a"> a) A single character from an alphabet</label>
+                    <label><input type="radio" name="q6" value="b"> b) A string of characters over some alphabet</label>
+                    <label><input type="radio" name="q6" value="c"> c) A set of sequences forming a language</label>
+                    <label><input type="radio" name="q6" value="d"> d) A rule for writing characters</label>
+                </div>
+                <div class="answer-box" id="answer6" data-correct-answer="b" data-explanation="In formal language theory, a sentence (or statement) is a string of characters formed from the alphabet according to the grammar rules.">
+                    Correct Answer: b) A string of characters over some alphabet<br><br><em>Explanation: In formal language theory, a sentence (or statement) is a string of characters formed from the alphabet according to the grammar rules.</em>
+                </div>
+            </div>
+
+            <!-- Grouped Questions Example -->
+<div class="question-group">
+    <div class="group-header">
+        <h3>Questions 7-11: Given the grammar:</h3>
+        <div class="grammar-block">
+            <pre>&lt;if_stmt&gt; → if (&lt;logic_expr&gt;) then &lt;stmt&gt;
+&lt;stmt&gt; → &lt;assign&gt;;
+&lt;assign&gt; → &lt;var&gt; = &lt;expression&gt;;</pre>
+        </div>
+    </div>
+    
+    <div class="grouped-questions">
+        <!-- Question 7 -->
+        <div class="question">
+            <h4>7. What is the starting symbol of this grammar?</h4>
+            <div class="options">
+                <label><input type="radio" name="q7" value="a"> a) &lt;if_stmt&gt;</label>
+                <label><input type="radio" name="q7" value="b"> b) &lt;assign&gt;</label>
+                <label><input type="radio" name="q7" value="c"> c) &lt;logic_expr&gt;</label>
+                <label><input type="radio" name="q7" value="d"> d) =</label>
+            </div>
+            <div class="answer-box" id="answer7" data-correct-answer="a" data-explanation="The starting symbol is the nonterminal from which all derivations begin. Here, &lt;if_stmt&gt; is the top-level production.">
+                Correct Answer: a) &lt;if_stmt&gt;<br><br><em>Explanation: The starting symbol is the nonterminal from which all derivations begin. Here, &lt;if_stmt&gt; is the top-level production.</em>
+            </div>
+        </div>
+        
+        <!-- Question 8 -->
+        <div class="question">
+            <h4>8. How many rules are in this grammar?</h4>
+            <div class="options">
+                <label><input type="radio" name="q8" value="a"> a) 1</label>
+                <label><input type="radio" name="q8" value="b"> b) 2</label>
+                <label><input type="radio" name="q8" value="c"> c) 3</label>
+                <label><input type="radio" name="q8" value="d"> d) 4</label>
+            </div>
+            <div class="answer-box" id="answer8" data-correct-answer="c" data-explanation="There are three production rules: one for &lt;if_stmt&gt;, one for &lt;stmt&gt;, and one for &lt;assign&gt;.">
+                Correct Answer: c) 3<br><br><em>Explanation: There are three production rules: one for &lt;if_stmt&gt;, one for &lt;stmt&gt;, and one for &lt;assign&gt;.</em>
+            </div>
+        </div>
+        
+        <!-- Question 9 -->
+        <div class="question">
+            <h4>9. How many different terminal symbols appear in the grammar?</h4>
+            <div class="options">
+                <label><input type="radio" name="q9" value="a"> a) 7</label>
+                <label><input type="radio" name="q9" value="b"> b) 4</label>
+                <label><input type="radio" name="q9" value="c"> c) 5</label>
+                <label><input type="radio" name="q9" value="d"> d) 6</label>
+            </div>
+            <div class="answer-box" id="answer9" data-correct-answer="d" data-explanation="Terminal symbols: if, (, ), then, ;, = (6 terminals). Non-terminals are in angle brackets.">
+                Correct Answer: d) 6<br><br><em>Explanation: Terminal symbols: if, (, ), then, ;, = (6 terminals). Non-terminals are in angle brackets.</em>
+            </div>
+        </div>
+        
+        <!-- Question 10 -->
+        <div class="question">
+            <h4>10. How many different abstraction (nonterminal) symbols appear in the grammar?</h4>
+            <div class="options">
+                <label><input type="radio" name="q10" value="a"> a) 3</label>
+                <label><input type="radio" name="q10" value="b"> b) 4</label>
+                <label><input type="radio" name="q10" value="c"> c) 5</label>
+                <label><input type="radio" name="q10" value="d"> d) 6</label>
+            </div>
+            <div class="answer-box" id="answer10" data-correct-answer="d" data-explanation="Nonterminals: &lt;if_stmt&gt;, &lt;logic_expr&gt;, &lt;stmt&gt;, &lt;assign&gt;, &lt;var&gt;, &lt;expression&gt; (6 nonterminals).">
+                Correct Answer: d) 6<br><br><em>Explanation: Nonterminals: &lt;if_stmt&gt;, &lt;logic_expr&gt;, &lt;stmt&gt;, &lt;assign&gt;, &lt;var&gt;, &lt;expression&gt; (6 nonterminals).</em>
+            </div>
+        </div>
+        
+        <!-- Question 11 -->
+        <div class="question">
+            <h4>11. What is this grammar mainly used for?</h4>
+            <div class="options">
+                <label><input type="radio" name="q11" value="a"> a) if-then–else statement</label>
+                <label><input type="radio" name="q11" value="b"> b) if-then statement</label>
+                <label><input type="radio" name="q11" value="c"> c) nested if statement</label>
+                <label><input type="radio" name="q11" value="d"> d) if statement with multiple conditions</label>
+            </div>
+            <div class="answer-box" id="answer11" data-correct-answer="b" data-explanation="This grammar defines a simple if-then statement without an else clause, as there's no production for else.">
+                Correct Answer: b) if-then statement<br><br><em>Explanation: This grammar defines a simple if-then statement without an else clause, as there's no production for else.</em>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <!-- Note: Questions 12-123 would continue in the same format -->
+            <!-- For this example, I'll add a few more to show the pattern -->
+
+            <div class="question">
+                <h3>12. What does Syntax refer to in PLs?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q12" value="a"> a) The meaning carried by the code during execution</label>
+                    <label><input type="radio" name="q12" value="b"> b) The way the code is written using symbols and rules</label>
+                    <label><input type="radio" name="q12" value="c"> c) The mathematical operations performed by the program</label>
+                    <label><input type="radio" name="q12" value="d"> d) The rules that define how statements are executed</label>
+                </div>
+                <div class="answer-box" id="answer12" data-correct-answer="b" data-explanation="Syntax refers to the structure and form of code - the rules for combining symbols into valid programs.">
+                    Correct Answer: b) The way the code is written using symbols and rules<br><br><em>Explanation: Syntax refers to the structure and form of code - the rules for combining symbols into valid programs.</em>
+                </div>
+            </div>
+
+
+	   <!-- Question 13 -->
+<div class="question">
+    <h3>13. What does Semantics refer to in PLs?</h3>
+    <div class="options">
+        <label><input type="radio" name="q13" value="a"> a) The meaning carried by the code during execution</label>
+        <label><input type="radio" name="q13" value="b"> b) The way the code is written using symbols and rules</label>
+        <label><input type="radio" name="q13" value="c"> c) The mathematical operations performed by the program</label>
+        <label><input type="radio" name="q13" value="d"> d) The rules that define how statements are executed</label>
+    </div>
+    <div class="answer-box" id="answer13" data-correct-answer="a" data-explanation="Semantics refers to the meaning of code - what the program does when executed, as opposed to syntax which is about structure.">
+        Correct Answer: a) The meaning carried by the code during execution<br><br><em>Explanation: Semantics refers to the meaning of code - what the program does when executed, as opposed to syntax which is about structure.</em>
+    </div>
+</div>
+
+<!-- Question 14 -->
+<div class="question">
+    <h3>14. What is a language?</h3>
+    <div class="options">
+        <label><input type="radio" name="q14" value="a"> a) A set of statements</label>
+        <label><input type="radio" name="q14" value="b"> b) A single sentence</label>
+        <label><input type="radio" name="q14" value="c"> c) A collection of characters</label>
+        <label><input type="radio" name="q14" value="d"> d) A type of grammar</label>
+    </div>
+    <div class="answer-box" id="answer14" data-correct-answer="a" data-explanation="In formal language theory, a language is defined as a set of strings (statements) that are valid according to the grammar rules.">
+        Correct Answer: a) A set of statements<br><br><em>Explanation: In formal language theory, a language is defined as a set of strings (statements) that are valid according to the grammar rules.</em>
+    </div>
+</div>
+
+<!-- Question 15 -->
+<div class="question">
+    <h3>15. What is the main difference between a recognizer and a generator?</h3>
+    <div class="options">
+        <label><input type="radio" name="q15" value="a"> a) A recognizer generates sentences, while a generator accepts or rejects them</label>
+        <label><input type="radio" name="q15" value="b"> b) A recognizer reads input strings to accept or reject them, while a generator produces valid sentences of the language</label>
+        <label><input type="radio" name="q15" value="c"> c) A recognizer defines the alphabet, while a generator defines syntax rules</label>
+        <label><input type="radio" name="q15" value="d"> d) A recognizer checks semantics, while a generator checks syntax</label>
+    </div>
+    <div class="answer-box" id="answer15" data-correct-answer="b" data-explanation="A recognizer (like a parser) determines if a given string belongs to the language. A generator (like a grammar) produces valid strings.">
+        Correct Answer: b) A recognizer reads input strings to accept or reject them, while a generator produces valid sentences of the language<br><br><em>Explanation: A recognizer (like a parser) determines if a given string belongs to the language. A generator (like a grammar) produces valid strings.</em>
+    </div>
+</div>
+
+<!-- Question 16 -->
+<div class="question">
+    <h3>16. What is a grammar?</h3>
+    <div class="options">
+        <label><input type="radio" name="q16" value="a"> a) A device that generates or accepts sentences</label>
+        <label><input type="radio" name="q16" value="b"> b) A sequence of characters forming a sentence</label>
+        <label><input type="radio" name="q16" value="c"> c) A finite non-empty set of rules</label>
+        <label><input type="radio" name="q16" value="d"> d) A set of input strings to be recognized</label>
+    </div>
+    <div class="answer-box" id="answer16" data-correct-answer="c" data-explanation="A grammar is a formal set of rules that define the syntax of a language - which strings are valid in that language.">
+        Correct Answer: c) A finite non-empty set of rules<br><br><em>Explanation: A grammar is a formal set of rules that define the syntax of a language - which strings are valid in that language.</em>
+    </div>
+</div>
+
+<!-- Question 17 -->
+<div class="question">
+    <h3>17. What is the primary use of Backus-Naur Form (BNF)?</h3>
+    <div class="options">
+        <label><input type="radio" name="q17" value="a"> a) To represent the syntax of a programming language</label>
+        <label><input type="radio" name="q17" value="b"> b) To define the syntax of a machine language</label>
+        <label><input type="radio" name="q17" value="c"> c) To execute programs in a compiler</label>
+        <label><input type="radio" name="q17" value="d"> d) To compile the grammar of a natural language</label>
+    </div>
+    <div class="answer-box" id="answer17" data-correct-answer="a" data-explanation="BNF is a notation technique for context-free grammars, often used to describe the syntax of programming languages, protocols, etc.">
+        Correct Answer: a) To represent the syntax of a programming language<br><br><em>Explanation: BNF is a notation technique for context-free grammars, often used to describe the syntax of programming languages, protocols, etc.</em>
+    </div>
+</div>
+
+<!-- Question 18 -->
+<div class="question">
+    <h3>18. What is true about Context-Free Grammar (CFG)?</h3>
+    <div class="options">
+        <label><input type="radio" name="q18" value="a"> a) It consists of a single non-terminal on the right-hand side of the production rule</label>
+        <label><input type="radio" name="q18" value="b"> b) Each production rule includes a string of terminals and/or non-terminals</label>
+        <label><input type="radio" name="q18" value="c"> c) It does not allow recursion in its rules</label>
+        <label><input type="radio" name="q18" value="d"> d) It is used only for natural language processing</label>
+    </div>
+    <div class="answer-box" id="answer18" data-correct-answer="b" data-explanation="In CFG, production rules have a single non-terminal on the left and a string of terminals and/or non-terminals on the right.">
+        Correct Answer: b) Each production rule includes a string of terminals and/or non-terminals<br><br><em>Explanation: In CFG, production rules have a single non-terminal on the left and a string of terminals and/or non-terminals on the right.</em>
+    </div>
+</div>
+
+<!-- Question 19 -->
+<div class="question">
+    <h3>19. Is the following rule recursive?</h3>
+    <div class="code-block">
+        <pre>&lt;ident_list&gt; → ident | ident, &lt;ident_list&gt;</pre>
+    </div>
+    <div class="options">
+        <label><input type="radio" name="q19" value="a"> a) Yes, because the RHS has more than one terminal symbol</label>
+        <label><input type="radio" name="q19" value="b"> b) No, because the rule does not reference any non-terminal</label>
+        <label><input type="radio" name="q19" value="c"> c) Yes, because the left-hand side (LHS) appears in the right-hand side (RHS)</label>
+        <label><input type="radio" name="q19" value="d"> d) No, because it only produces a single identifier</label>
+    </div>
+    <div class="answer-box" id="answer19" data-correct-answer="c" data-explanation="The rule is recursive because &lt;ident_list&gt; appears on both sides - this allows lists of arbitrary length.">
+        Correct Answer: c) Yes, because the left-hand side (LHS) appears in the right-hand side (RHS)<br><br><em>Explanation: The rule is recursive because &lt;ident_list&gt; appears on both sides - this allows lists of arbitrary length.</em>
+    </div>
+</div>
+
+<!-- Question 20 -->
+<div class="question">
+    <h3>20. Which of the following best defines a derivation?</h3>
+    <div class="options">
+        <label><input type="radio" name="q20" value="a"> a) A method to check if a string is valid in the language</label>
+        <label><input type="radio" name="q20" value="b"> b) A sequence of rule applications to generate a string from a grammar</label>
+        <label><input type="radio" name="q20" value="c"> c) A technique to reduce a string into its simplest form</label>
+        <label><input type="radio" name="q20" value="d"> d) A rule that defines how a string should be parsed</label>
+    </div>
+    <div class="answer-box" id="answer20" data-correct-answer="b" data-explanation="A derivation is a sequence of production rule applications that transforms the start symbol into a terminal string.">
+        Correct Answer: b) A sequence of rule applications to generate a string from a grammar<br><br><em>Explanation: A derivation is a sequence of production rule applications that transforms the start symbol into a terminal string.</em>
+    </div>
+</div>
+
+<!-- Question 21 - Improved Structure -->
+<div class="question">
+    <h3>21. Using the grammar below, which of the following is a correct derivation for the statement a = b + c?</h3>
+    <div class="grammar-block">
+        <pre>&lt;stmt&gt; → &lt;id&gt; = &lt;expr&gt;
+&lt;expr&gt; → &lt;id&gt; | &lt;expr&gt; + &lt;expr&gt;
+&lt;id&gt; → a | b | c</pre>
+    </div>
+    <div class="options">
+        <label>
+            <input type="radio" name="q21" value="a">
+            <div class="derivation-option">
+                <div class="derivation-header">Option A:</div>
+                <pre class="derivation-code">&lt;stmt&gt;
+→ &lt;id&gt; = &lt;expr&gt;
+→ a = &lt;expr&gt; + &lt;id&gt;
+→ a = &lt;id&gt; + &lt;expr&gt;
+→ a = b + &lt;id&gt;
+→ a = b + c</pre>
+            </div>
+        </label>
+        
+        <label>
+            <input type="radio" name="q21" value="b">
+            <div class="derivation-option">
+                <div class="derivation-header">Option B:</div>
+                <pre class="derivation-code">&lt;stmt&gt;
+→ &lt;id&gt; = &lt;expr&gt;
+→ a = &lt;expr&gt; + &lt;expr&gt;
+→ a = &lt;id&gt; + &lt;expr&gt;
+→ a = b + c</pre>
+            </div>
+        </label>
+        
+        <label>
+            <input type="radio" name="q21" value="c">
+            <div class="derivation-option">
+                <div class="derivation-header">Option C:</div>
+                <pre class="derivation-code">&lt;stmt&gt;
+→ &lt;id&gt; = &lt;expr&gt;
+→ a = &lt;expr&gt;
+→ a = &lt;expr&gt; + &lt;expr&gt;
+→ a = &lt;id&gt; + &lt;expr&gt;
+→ a = b + &lt;id&gt;
+→ a = b + c</pre>
+            </div>
+        </label>
+        
+        <label>
+            <input type="radio" name="q21" value="d">
+            <div class="derivation-option">
+                <div class="derivation-header">Option D:</div>
+                <div class="derivation-text">All of above is correct</div>
+            </div>
+        </label>
+    </div>
+    <div class="answer-box" id="answer21" data-correct-answer="c" data-explanation="Option C shows the correct step-by-step derivation: starting with &lt;stmt&gt;, replacing &lt;id&gt; with 'a', expanding &lt;expr&gt; to &lt;expr&gt;+&lt;expr&gt;, then replacing each with identifiers.">
+        Correct Answer: c<br><br><em>Explanation: Option C shows the correct step-by-step derivation: starting with &lt;stmt&gt;, replacing &lt;id&gt; with 'a', expanding &lt;expr&gt; to &lt;expr&gt;+&lt;expr&gt;, then replacing each with identifiers.</em>
+    </div>
+</div>
+<!-- Continue with questions 22-122 in same format... -->
+
+<!-- Question 22 -->
+<div class="question">
+    <h3>22. Which of the following best defines a parse tree?</h3>
+    <div class="options">
+        <label><input type="radio" name="q22" value="a"> a) A linear sequence of rule applications to generate a string from a grammar</label>
+        <label><input type="radio" name="q22" value="b"> b) A hierarchical representation of a derivation</label>
+        <label><input type="radio" name="q22" value="c"> c) A set of terminals in a grammar</label>
+        <label><input type="radio" name="q22" value="d"> d) The left-hand side of a grammar rule</label>
+    </div>
+    <div class="answer-box" id="answer22" data-correct-answer="b" data-explanation="A parse tree is a tree structure that shows how a string can be derived from the grammar, with the root as the start symbol and leaves as terminals.">
+        Correct Answer: b) A hierarchical representation of a derivation<br><br><em>Explanation: A parse tree is a tree structure that shows how a string can be derived from the grammar, with the root as the start symbol and leaves as terminals.</em>
+    </div>
+</div>
+
+<!-- Question 23 -->
+<div class="question">
+    <h3>23. In a parse tree, what does each internal node represent?</h3>
+    <div class="options">
+        <label><input type="radio" name="q23" value="a"> a) A terminal symbol</label>
+        <label><input type="radio" name="q23" value="b"> b) A production rule</label>
+        <label><input type="radio" name="q23" value="c"> c) A non-terminal variable</label>
+        <label><input type="radio" name="q23" value="d"> d) A complete statement</label>
+    </div>
+    <div class="answer-box" id="answer23" data-correct-answer="c" data-explanation="Internal nodes represent non-terminal symbols that are expanded during derivation, while leaves represent terminals.">
+        Correct Answer: c) A non-terminal variable<br><br><em>Explanation: Internal nodes represent non-terminal symbols that are expanded during derivation, while leaves represent terminals.</em>
+    </div>
+</div>
+
+<!-- Question 24 -->
+<div class="question">
+    <h3>24. In a parse tree, what does each leaf node represent?</h3>
+    <div class="options">
+        <label><input type="radio" name="q24" value="a"> a) A non-terminal variable</label>
+        <label><input type="radio" name="q24" value="b"> b) A grammar rule</label>
+        <label><input type="radio" name="q24" value="c"> c) A derivation step</label>
+        <label><input type="radio" name="q24" value="d"> d) A terminal variable</label>
+    </div>
+    <div class="answer-box" id="answer24" data-correct-answer="d" data-explanation="Leaf nodes in a parse tree represent terminal symbols - the actual characters/tokens of the language.">
+        Correct Answer: d) A terminal variable<br><br><em>Explanation: Leaf nodes in a parse tree represent terminal symbols - the actual characters/tokens of the language.</em>
+    </div>
+</div>
+
+<!-- Question 25 -->
+<div class="question">
+    <h3>25. Which of the following best defines a sentential form?</h3>
+    <div class="options">
+        <label><input type="radio" name="q25" value="a"> a) A string containing only terminal symbols</label>
+        <label><input type="radio" name="q25" value="b"> b) Any string of symbols that appears during a derivation</label>
+        <label><input type="radio" name="q25" value="c"> c) The final output string of a grammar only</label>
+        <label><input type="radio" name="q25" value="d"> d) A string that contains exactly one nonterminal</label>
+    </div>
+    <div class="answer-box" id="answer25" data-correct-answer="b" data-explanation="A sentential form is any string (mix of terminals and non-terminals) that can appear in a derivation from the start symbol.">
+        Correct Answer: b) Any string of symbols that appears during a derivation<br><br><em>Explanation: A sentential form is any string (mix of terminals and non-terminals) that can appear in a derivation from the start symbol.</em>
+    </div>
+</div>
+
+<!-- Question 26 -->
+<div class="question">
+    <h3>26. A grammar is ambiguous if:</h3>
+    <div class="options">
+        <label><input type="radio" name="q26" value="a"> a) It has only one parse tree for the same sentential form</label>
+        <label><input type="radio" name="q26" value="b"> b) It has two or more parse trees for the same sentential form</label>
+        <label><input type="radio" name="q26" value="c"> c) It has no parse trees for the same sentential form</label>
+        <label><input type="radio" name="q26" value="d"> d) It has exactly three parse trees for every sentential form</label>
+    </div>
+    <div class="answer-box" id="answer26" data-correct-answer="b" data-explanation="Ambiguity occurs when a sentence can be parsed in multiple ways, leading to different parse trees with potentially different meanings.">
+        Correct Answer: b) It has two or more parse trees for the same sentential form<br><br><em>Explanation: Ambiguity occurs when a sentence can be parsed in multiple ways, leading to different parse trees with potentially different meanings.</em>
+    </div>
+</div>
+
+<!-- Question 27 -->
+<div class="question">
+    <h3>27. In the expression A + B * C, which operation is performed first according to the standard precedence rules?</h3>
+    <div class="options">
+        <label><input type="radio" name="q27" value="a"> a) Addition (A + B)</label>
+        <label><input type="radio" name="q27" value="b"> b) Multiplication (B * C)</label>
+        <label><input type="radio" name="q27" value="c"> c) Addition first, then multiplication</label>
+        <label><input type="radio" name="q27" value="d"> d) None of above</label>
+    </div>
+    <div class="answer-box" id="answer27" data-correct-answer="b" data-explanation="Multiplication has higher precedence than addition, so B * C is computed first, then added to A.">
+        Correct Answer: b) Multiplication (B * C)<br><br><em>Explanation: Multiplication has higher precedence than addition, so B * C is computed first, then added to A.</em>
+    </div>
+</div>
+
+<!-- Question 28 -->
+<div class="question">
+    <h3>28. In the expression A * B + C, if the grammar is not defined correctly, what might happen?</h3>
+    <div class="options">
+        <label><input type="radio" name="q28" value="a"> a) The addition could be done before multiplication</label>
+        <label><input type="radio" name="q28" value="b"> b) The multiplication could be done before addition</label>
+        <label><input type="radio" name="q28" value="c"> c) The order of operations could be ambiguous</label>
+        <label><input type="radio" name="q28" value="d"> d) The operators' precedence might be ignored</label>
+    </div>
+    <div class="answer-box" id="answer28" data-correct-answer="c" data-explanation="Without proper grammar rules for precedence, the expression could be parsed as (A*B)+C or A*(B+C), leading to ambiguity.">
+        Correct Answer: c) The order of operations could be ambiguous<br><br><em>Explanation: Without proper grammar rules for precedence, the expression could be parsed as (A*B)+C or A*(B+C), leading to ambiguity.</em>
+    </div>
+</div>
+
+<!-- Question 29 -->
+<div class="question">
+    <h3>29. Consider the grammar: E → E + E | E * E | id</h3>
+    <div class="options">
+        <label><input type="radio" name="q29" value="a"> a) Ambiguous</label>
+        <label><input type="radio" name="q29" value="b"> b) Unambiguous</label>
+        <label><input type="radio" name="q29" value="c"> c) Cannot be determined</label>
+        <label><input type="radio" name="q29" value="d"> d) Only for terminals</label>
+    </div>
+    <div class="answer-box" id="answer29" data-correct-answer="a" data-explanation="This grammar is ambiguous because it doesn't specify operator precedence. For 'id+id*id', there are two parse trees: (id+id)*id and id+(id*id).">
+        Correct Answer: a) Ambiguous<br><br><em>Explanation: This grammar is ambiguous because it doesn't specify operator precedence. For 'id+id*id', there are two parse trees: (id+id)*id and id+(id*id).</em>
+    </div>
+</div>
+
+<!-- Question 30 -->
+<div class="question">
+    <h3>30. Consider the grammar: E → E + T | T, T → T * F | F, F → id</h3>
+    <div class="options">
+        <label><input type="radio" name="q30" value="a"> a) Ambiguous</label>
+        <label><input type="radio" name="q30" value="b"> b) Unambiguous</label>
+        <label><input type="radio" name="q30" value="c"> c) Cannot be determined</label>
+        <label><input type="radio" name="q30" value="d"> d) Only for terminals</label>
+    </div>
+    <div class="answer-box" id="answer30" data-correct-answer="b" data-explanation="This grammar is unambiguous because it enforces precedence: multiplication (in T) binds tighter than addition (in E).">
+        Correct Answer: b) Unambiguous<br><br><em>Explanation: This grammar is unambiguous because it enforces precedence: multiplication (in T) binds tighter than addition (in E).</em>
+    </div>
+</div>
+
+<!-- Question 31 -->
+<div class="question">
+    <h3>31. In a parse tree, which statement about operator precedence is true?</h3>
+    <div class="options">
+        <label><input type="radio" name="q31" value="a"> a) Operators higher in the tree have higher precedence</label>
+        <label><input type="radio" name="q31" value="b"> b) Operators lower in the tree have higher precedence</label>
+        <label><input type="radio" name="q31" value="c"> c) All operators have the same precedence</label>
+        <label><input type="radio" name="q31" value="d"> d) Operator precedence cannot be determined from the tree</label>
+    </div>
+    <div class="answer-box" id="answer31" data-correct-answer="b" data-explanation="In parse trees, operators with higher precedence appear lower in the tree (closer to the leaves), while operators with lower precedence appear higher.">
+        Correct Answer: b) Operators lower in the tree have higher precedence<br><br><em>Explanation: In parse trees, operators with higher precedence appear lower in the tree (closer to the leaves), while operators with lower precedence appear higher.</em>
+    </div>
+</div>
+
+<!-- Question 32 -->
+<div class="question">
+    <h3>32. Which of the following operations is NOT associative?</h3>
+    <div class="options">
+        <label><input type="radio" name="q32" value="a"> a) Addition</label>
+        <label><input type="radio" name="q32" value="b"> b) Multiplication</label>
+        <label><input type="radio" name="q32" value="c"> c) Subtraction</label>
+        <label><input type="radio" name="q32" value="d"> d) Exponentiation</label>
+    </div>
+    <div class="answer-box" id="answer32" data-correct-answer="c" data-explanation="Subtraction is not associative: (a - b) - c ≠ a - (b - c). Also, division is not associative.">
+        Correct Answer: c) Subtraction<br><br><em>Explanation: Subtraction is not associative: (a - b) - c ≠ a - (b - c). Also, division is not associative.</em>
+    </div>
+</div>
+
+<!-- Question 33 -->
+<div class="question">
+    <h3>33. Which operations is typically right-associative in PLs?</h3>
+    <div class="options">
+        <label><input type="radio" name="q33" value="a"> a) Addition</label>
+        <label><input type="radio" name="q33" value="b"> b) Multiplication</label>
+        <label><input type="radio" name="q33" value="c"> c) Exponentiation</label>
+        <label><input type="radio" name="q33" value="d"> d) Subtraction</label>
+    </div>
+    <div class="answer-box" id="answer33" data-correct-answer="c" data-explanation="Exponentiation is typically right-associative: 2^3^4 = 2^(3^4). This is because (a^b)^c = a^(b*c), so right-associativity makes more mathematical sense.">
+        Correct Answer: c) Exponentiation<br><br><em>Explanation: Exponentiation is typically right-associative: 2^3^4 = 2^(3^4). This is because (a^b)^c = a^(b*c), so right-associativity makes more mathematical sense.</em>
+    </div>
+</div>
+
+<!-- Question 34 -->
+<div class="question">
+    <h3>34. Which operations is typically left-associative in PLs?</h3>
+    <div class="options">
+        <label><input type="radio" name="q34" value="a"> a) Addition</label>
+        <label><input type="radio" name="q34" value="b"> b) Multiplication</label>
+        <label><input type="radio" name="q34" value="c"> c) Both A and B</label>
+        <label><input type="radio" name="q34" value="d"> d) Subtraction</label>
+    </div>
+    <div class="answer-box" id="answer34" data-correct-answer="c" data-explanation="Addition and multiplication are both left-associative in most programming languages: a + b + c = (a + b) + c, and a * b * c = (a * b) * c.">
+        Correct Answer: c) Both A and B<br><br><em>Explanation: Addition and multiplication are both left-associative in most programming languages: a + b + c = (a + b) + c, and a * b * c = (a * b) * c.</em>
+    </div>
+</div>
+
+<!-- Question 35 -->
+<div class="question">
+    <h3>35. What is true about EBNF compared to BNF?</h3>
+    <div class="options">
+        <label><input type="radio" name="q35" value="a"> a) EBNF uses the same symbols as BNF, making it simpler</label>
+        <label><input type="radio" name="q35" value="b"> b) EBNF allows defining complex syntax using optional elements, alternatives, and repetitions</label>
+        <label><input type="radio" name="q35" value="c"> c) EBNF eliminates the need for recursion in grammar definitions</label>
+        <label><input type="radio" name="q35" value="d"> d) EBNF is limited to defining basic syntax and cannot handle complex structures</label>
+    </div>
+    <div class="answer-box" id="answer35" data-correct-answer="b" data-explanation="Extended Backus-Naur Form (EBNF) adds notation for optional parts [], alternatives (), repetitions {}, and other extensions that make complex syntax definitions more readable.">
+        Correct Answer: b) EBNF allows defining complex syntax using optional elements, alternatives, and repetitions<br><br><em>Explanation: Extended Backus-Naur Form (EBNF) adds notation for optional parts [], alternatives (), repetitions {}, and other extensions that make complex syntax definitions more readable.</em>
+    </div>
+</div>
+
+<!-- Question 36 -->
+<div class="question">
+    <h3>36. What is NOT true about EBNF?</h3>
+    <div class="options">
+        <label><input type="radio" name="q36" value="a"> a) Optional parts are placed inside brackets [ ]</label>
+        <label><input type="radio" name="q36" value="b"> b) Alternatives are in parentheses () and separated by |</label>
+        <label><input type="radio" name="q36" value="c"> c) Repetitions are placed inside braces { }</label>
+        <label><input type="radio" name="q36" value="d"> d) Repetitions are placed inside parentheses ()</label>
+    </div>
+    <div class="answer-box" id="answer36" data-correct-answer="d" data-explanation="In EBNF, repetitions use braces { }, not parentheses (). Parentheses are used for grouping alternatives.">
+        Correct Answer: d) Repetitions are placed inside parentheses ()<br><br><em>Explanation: In EBNF, repetitions use braces { }, not parentheses (). Parentheses are used for grouping alternatives.</em>
+    </div>
+</div>
+
+<!-- Question 37 -->
+<div class="question">
+    <h3>37. A data type defines:</h3>
+    <div class="options">
+        <label><input type="radio" name="q37" value="a"> a) A collection of data objects and a set of operations on them</label>
+        <label><input type="radio" name="q37" value="b"> b) A collection of variables and a sequence of statements</label>
+        <label><input type="radio" name="q37" value="c"> c) A set of operations without specifying data objects</label>
+        <label><input type="radio" name="q37" value="d"> d) A collection of data objects without any associated operations</label>
+    </div>
+    <div class="answer-box" id="answer37" data-correct-answer="a" data-explanation="A data type consists of two parts: a set of data values (objects) and a collection of operations that can be performed on those values.">
+        Correct Answer: a) A collection of data objects and a set of operations on them<br><br><em>Explanation: A data type consists of two parts: a set of data values (objects) and a collection of operations that can be performed on those values.</em>
+    </div>
+</div>
+
+<!-- Question 38 -->
+<div class="question">
+    <h3>38. A descriptor is:</h3>
+    <div class="options">
+        <label><input type="radio" name="q38" value="a"> a) A memory location used to store data</label>
+        <label><input type="radio" name="q38" value="b"> b) The value stored in a variable at runtime</label>
+        <label><input type="radio" name="q38" value="c"> c) A set of operations defined for a data type</label>
+        <label><input type="radio" name="q38" value="d"> d) The collection of attributes of a variable</label>
+    </div>
+    <div class="answer-box" id="answer38" data-correct-answer="d" data-explanation="A descriptor is the collection of attributes (type, size, bounds, etc.) that describe a variable, used by the compiler for type checking and memory allocation.">
+        Correct Answer: d) The collection of attributes of a variable<br><br><em>Explanation: A descriptor is the collection of attributes (type, size, bounds, etc.) that describe a variable, used by the compiler for type checking and memory allocation.</em>
+    </div>
+</div>
+
+<!-- Question 39 -->
+<div class="question">
+    <h3>39. An object represents:</h3>
+    <div class="options">
+        <label><input type="radio" name="q39" value="a"> a) A collection of variables and functions</label>
+        <label><input type="radio" name="q39" value="b"> b) A set of operations defined by a data type</label>
+        <label><input type="radio" name="q39" value="c"> c) An instance of a user-defined (abstract data) type</label>
+        <label><input type="radio" name="q39" value="d"> d) A memory address allocated at runtime</label>
+    </div>
+    <div class="answer-box" id="answer39" data-correct-answer="c" data-explanation="An object is a concrete instance of a class or abstract data type, containing both data (attributes) and behavior (methods).">
+        Correct Answer: c) An instance of a user-defined (abstract data) type<br><br><em>Explanation: An object is a concrete instance of a class or abstract data type, containing both data (attributes) and behavior (methods).</em>
+    </div>
+</div>
+
+<!-- Question 40 -->
+<div class="question">
+    <h3>40. Which of the following best defines primitive data types?</h3>
+    <div class="options">
+        <label><input type="radio" name="q40" value="a"> a) Data types that always require software support</label>
+        <label><input type="radio" name="q40" value="b"> b) Data types defined using user-defined structures</label>
+        <label><input type="radio" name="q40" value="c"> c) Data types not defined in terms of other data types</label>
+        <label><input type="radio" name="q40" value="d"> d) Data types that cannot store numeric values</label>
+    </div>
+    <div class="answer-box" id="answer40" data-correct-answer="c" data-explanation="Primitive data types are the basic building blocks provided by a language, not defined in terms of other types (e.g., int, float, char).">
+        Correct Answer: c) Data types not defined in terms of other data types<br><br><em>Explanation: Primitive data types are the basic building blocks provided by a language, not defined in terms of other types (e.g., int, float, char).</em>
+    </div>
+</div>
+
+<!-- Question 41 -->
+<div class="question">
+    <h3>41. Which of the following is correct about primitive data types?</h3>
+    <div class="options">
+        <label><input type="radio" name="q41" value="a"> a) Primitive types require complex software to function</label>
+        <label><input type="radio" name="q41" value="b"> b) All primitive types are handled entirely by software</label>
+        <label><input type="radio" name="q41" value="c"> c) Primitive types cannot be handled by hardware directly</label>
+        <label><input type="radio" name="q41" value="d"> d) Some primitive types are handled directly by hardware</label>
+    </div>
+    <div class="answer-box" id="answer41" data-correct-answer="d" data-explanation="Some primitive types like integers and floating-point numbers are often handled directly by hardware, while others may require software support.">
+        Correct Answer: d) Some primitive types are handled directly by hardware<br><br><em>Explanation: Some primitive types like integers and floating-point numbers are often handled directly by hardware, while others may require software support.</em>
+    </div>
+</div>
+
+<!-- Question 42 -->
+<div class="question">
+    <h3>42. Which statement is true about the Integer primitive data type?</h3>
+    <div class="options">
+        <label><input type="radio" name="q42" value="a"> a) It usually maps directly to hardware, so the mapping is simple</label>
+        <label><input type="radio" name="q42" value="b"> b) It usually maps directly to software, so the mapping is simple</label>
+        <label><input type="radio" name="q42" value="c"> c) It usually maps indirectly to hardware, so the mapping is simple</label>
+        <label><input type="radio" name="q42" value="d"> d) It usually maps directly to hardware, so the mapping is complex</label>
+    </div>
+    <div class="answer-box" id="answer42" data-correct-answer="a" data-explanation="Integer types typically map directly to hardware registers and operations, making the mapping straightforward and efficient.">
+        Correct Answer: a) It usually maps directly to hardware, so the mapping is simple<br><br><em>Explanation: Integer types typically map directly to hardware registers and operations, making the mapping straightforward and efficient.</em>
+    </div>
+</div>
+
+<!-- Question 43 -->
+<div class="question">
+    <h3>43. Which of the following are Java's signed integer types?</h3>
+    <div class="options">
+        <label><input type="radio" name="q43" value="a"> a) int</label>
+        <label><input type="radio" name="q43" value="b"> b) float</label>
+        <label><input type="radio" name="q43" value="c"> c) long</label>
+        <label><input type="radio" name="q43" value="d"> d) All of above</label>
+    </div>
+    <div class="answer-box" id="answer43" data-correct-answer="d" data-explanation="In Java, int and long are signed integer types. float is a floating-point type, not an integer type.">
+        Correct Answer: d) All of above<br><br><em>Explanation: In Java, int and long are signed integer types. float is a floating-point type, not an integer type.</em>
+    </div>
+</div>
+
+<!-- Question 44 -->
+<div class="question">
+    <h3>44. Which statement is true about floating-point data types?</h3>
+    <div class="options">
+        <label><input type="radio" name="q44" value="a"> a) They model real numbers, but only as approximations</label>
+        <label><input type="radio" name="q44" value="b"> b) They always represent real numbers exactly</label>
+        <label><input type="radio" name="q44" value="c"> c) They cannot be used in scientific computations</label>
+        <label><input type="radio" name="q44" value="d"> d) They are always implemented entirely in software</label>
+    </div>
+    <div class="answer-box" id="answer44" data-correct-answer="a" data-explanation="Floating-point numbers approximate real numbers using a fixed number of bits, so they have limited precision and range.">
+        Correct Answer: a) They model real numbers, but only as approximations<br><br><em>Explanation: Floating-point numbers approximate real numbers using a fixed number of bits, so they have limited precision and range.</em>
+    </div>
+</div>
+
+<!-- Question 45 -->
+<div class="question">
+    <h3>45. Floating-point types are primarily used in which type of applications?</h3>
+    <div class="options">
+        <label><input type="radio" name="q45" value="a"> a) Business applications, usually providing float and int</label>
+        <label><input type="radio" name="q45" value="b"> b) Scientific applications, usually providing float and double</label>
+        <label><input type="radio" name="q45" value="c"> c) Web applications, usually providing double and int</label>
+        <label><input type="radio" name="q45" value="d"> d) System applications, usually providing int and long</label>
+    </div>
+    <div class="answer-box" id="answer45" data-correct-answer="b" data-explanation="Floating-point types (float and double) are essential for scientific computing where real numbers with fractional parts are needed.">
+        Correct Answer: b) Scientific applications, usually providing float and double<br><br><em>Explanation: Floating-point types (float and double) are essential for scientific computing where real numbers with fractional parts are needed.</em>
+    </div>
+</div>
+
+<!-- Question 46 -->
+<div class="question">
+    <h3>46. Which is true about complex data types?</h3>
+    <div class="options">
+        <label><input type="radio" name="q46" value="a"> a) Each value consists of a float part and an integer part</label>
+        <label><input type="radio" name="q46" value="b"> b) Each value consists of a real part and an integer part</label>
+        <label><input type="radio" name="q46" value="c"> c) Each value consists of an imaginary part and an integer part</label>
+        <label><input type="radio" name="q46" value="d"> d) Each value consists of a real part and an imaginary part</label>
+    </div>
+    <div class="answer-box" id="answer46" data-correct-answer="d" data-explanation="Complex numbers have two components: a real part and an imaginary part, typically both floating-point numbers.">
+        Correct Answer: d) Each value consists of a real part and an imaginary part<br><br><em>Explanation: Complex numbers have two components: a real part and an imaginary part, typically both floating-point numbers.</em>
+    </div>
+</div>
+
+<!-- Question 47 -->
+<div class="question">
+    <h3>47. Which of the following languages support complex data types?</h3>
+    <div class="options">
+        <label><input type="radio" name="q47" value="a"> a) C99, Java, Python</label>
+        <label><input type="radio" name="q47" value="b"> b) C, Fortran, Python</label>
+        <label><input type="radio" name="q47" value="c"> c) C99, Fortran, Python</label>
+        <label><input type="radio" name="q47" value="d"> d) C, Fortran, Java</label>
+    </div>
+    <div class="answer-box" id="answer47" data-correct-answer="c" data-explanation="C99 added complex number support, Fortran has always had complex numbers, and Python supports them through the 'complex' type.">
+        Correct Answer: c) C99, Fortran, Python<br><br><em>Explanation: C99 added complex number support, Fortran has always had complex numbers, and Python supports them through the 'complex' type.</em>
+    </div>
+</div>
+
+<!-- Question 48 -->
+<div class="question">
+    <h3>48. Which is an advantage of decimal data types?</h3>
+    <div class="options">
+        <label><input type="radio" name="q48" value="a"> a) Accuracy</label>
+        <label><input type="radio" name="q48" value="b"> b) Unlimited range</label>
+        <label><input type="radio" name="q48" value="c"> c) Saves memory</label>
+        <label><input type="radio" name="q48" value="d"> d) All of above</label>
+    </div>
+    <div class="answer-box" id="answer48" data-correct-answer="a" data-explanation="Decimal types provide exact representation for decimal fractions (like 0.1) that binary floating-point can't represent exactly, making them accurate for financial calculations.">
+        Correct Answer: a) Accuracy<br><br><em>Explanation: Decimal types provide exact representation for decimal fractions (like 0.1) that binary floating-point can't represent exactly, making them accurate for financial calculations.</em>
+    </div>
+</div>
+
+<!-- Question 49 -->
+<div class="question">
+    <h3>49. Which is true about decimal data types?</h3>
+    <div class="options">
+        <label><input type="radio" name="q49" value="a"> a) They are used for scientific computations only</label>
+        <label><input type="radio" name="q49" value="b"> b) They are used only for integers</label>
+        <label><input type="radio" name="q49" value="c"> c) They are used for business applications, such as money</label>
+        <label><input type="radio" name="q49" value="d"> d) They are not suitable for storing precise values</label>
+    </div>
+    <div class="answer-box" id="answer49" data-correct-answer="c" data-explanation="Decimal types are designed for business/financial applications where exact decimal representation is critical (e.g., currency calculations).">
+        Correct Answer: c) They are used for business applications, such as money<br><br><em>Explanation: Decimal types are designed for business/financial applications where exact decimal representation is critical (e.g., currency calculations).</em>
+    </div>
+</div>
+
+<!-- Question 50 -->
+<div class="question">
+    <h3>50. Which languages support decimal data types?</h3>
+    <div class="options">
+        <label><input type="radio" name="q50" value="a"> a) COBOL, C#</label>
+        <label><input type="radio" name="q50" value="b"> b) C, Python</label>
+        <label><input type="radio" name="q50" value="c"> c) Java, Python</label>
+        <label><input type="radio" name="q50" value="d"> d) COBOL, Java</label>
+    </div>
+    <div class="answer-box" id="answer50" data-correct-answer="a" data-explanation="COBOL was designed for business computing and has strong decimal support. C# has the 'decimal' type for financial calculations.">
+        Correct Answer: a) COBOL, C#<br><br><em>Explanation: COBOL was designed for business computing and has strong decimal support. C# has the 'decimal' type for financial calculations.</em>
+    </div>
+</div>
+
+<!-- Question 51 -->
+<div class="question">
+    <h3>51. Binary Coded Decimal (BCD) is used to:</h3>
+    <div class="options">
+        <label><input type="radio" name="q51" value="a"> a) Store decimal digits as plain binary numbers</label>
+        <label><input type="radio" name="q51" value="b"> b) Represent only integers in floating-point form</label>
+        <label><input type="radio" name="q51" value="c"> c) Store decimal digits using 4-bit binary codes</label>
+        <label><input type="radio" name="q51" value="d"> d) Compress decimal numbers for less memory usage</label>
+    </div>
+    <div class="answer-box" id="answer51" data-correct-answer="c" data-explanation="BCD encodes each decimal digit (0-9) as a 4-bit binary number (0000 to 1001), making decimal arithmetic more accurate but less memory efficient.">
+        Correct Answer: c) Store decimal digits using 4-bit binary codes<br><br><em>Explanation: BCD encodes each decimal digit (0-9) as a 4-bit binary number (0000 to 1001), making decimal arithmetic more accurate but less memory efficient.</em>
+    </div>
+</div>
+
+<!-- Question 52 -->
+<div class="question">
+    <h3>52. In the Boolean data type, when we use `true` or `false`, what is the main advantage?</h3>
+    <div class="options">
+        <label><input type="radio" name="q52" value="a"> a) It improves readability and makes code easier to understand</label>
+        <label><input type="radio" name="q52" value="b"> b) It can reduce memory usage slightly compared to using 1 and 0</label>
+        <label><input type="radio" name="q52" value="c"> c) It increases program execution speed</label>
+        <label><input type="radio" name="q52" value="d"> d) It allows storing multiple numbers in one variable</label>
+    </div>
+    <div class="answer-box" id="answer52" data-correct-answer="a" data-explanation="Using true/false instead of 1/0 makes code self-documenting and clearer about the programmer's intent.">
+        Correct Answer: a) It improves readability and makes code easier to understand<br><br><em>Explanation: Using true/false instead of 1/0 makes code self-documenting and clearer about the programmer's intent.</em>
+    </div>
+</div>
+
+<!-- Question 53 -->
+<div class="question">
+    <h3>53. How are characters stored in memory?</h3>
+    <div class="options">
+        <label><input type="radio" name="q53" value="a"> a) As binary patterns that represent keyboard scan codes only</label>
+        <label><input type="radio" name="q53" value="b"> b) As fixed-length bitmaps of each character shape</label>
+        <label><input type="radio" name="q53" value="c"> c) As numeric codes assigned to each character</label>
+        <label><input type="radio" name="q53" value="d"> d) As direct voltage levels without logical encoding</label>
+    </div>
+    <div class="answer-box" id="answer53" data-correct-answer="c" data-explanation="Characters are stored using character encoding standards like ASCII or Unicode, which assign numeric codes to each character.">
+        Correct Answer: c) As numeric codes assigned to each character<br><br><em>Explanation: Characters are stored using character encoding standards like ASCII or Unicode, which assign numeric codes to each character.</em>
+    </div>
+</div>
+
+<!-- Question 54 -->
+<div class="question">
+    <h3>54. What is the main difference between ASCII and Unicode?</h3>
+    <div class="options">
+        <label><input type="radio" name="q54" value="a"> a) ASCII supports only English characters, while Unicode supports many world languages</label>
+        <label><input type="radio" name="q54" value="b"> b) ASCII uses 32 bits, while Unicode uses 8 bits</label>
+        <label><input type="radio" name="q54" value="c"> c) ASCII supports all world languages, while Unicode supports English only</label>
+        <label><input type="radio" name="q54" value="d"> d) ASCII stores images, while Unicode stores text</label>
+    </div>
+    <div class="answer-box" id="answer54" data-correct-answer="a" data-explanation="ASCII (7-bit) only covers English letters, digits, and basic symbols. Unicode (up to 32-bit) supports characters from virtually all writing systems.">
+        Correct Answer: a) ASCII supports only English characters, while Unicode supports many world languages<br><br><em>Explanation: ASCII (7-bit) only covers English letters, digits, and basic symbols. Unicode (up to 32-bit) supports characters from virtually all writing systems.</em>
+    </div>
+</div>
+
+<!-- Question 55 -->
+<div class="question">
+    <h3>55. What is a character string?</h3>
+    <div class="options">
+        <label><input type="radio" name="q55" value="a"> a) A single character</label>
+        <label><input type="radio" name="q55" value="b"> b) An integer value</label>
+        <label><input type="radio" name="q55" value="c"> c) A sequence of characters</label>
+        <label><input type="radio" name="q55" value="d"> d) A floating-point number</label>
+    </div>
+    <div class="answer-box" id="answer55" data-correct-answer="c" data-explanation="A string is a sequence (array) of characters, typically used to represent text in programming languages.">
+        Correct Answer: c) A sequence of characters<br><br><em>Explanation: A string is a sequence (array) of characters, typically used to represent text in programming languages.</em>
+    </div>
+</div>
+
+<!-- Question 56 -->
+<div class="question">
+    <h3>56. Which of the following is a common string operation?</h3>
+    <div class="options">
+        <label><input type="radio" name="q56" value="a"> a) Assigning values</label>
+        <label><input type="radio" name="q56" value="b"> b) Comparing</label>
+        <label><input type="radio" name="q56" value="c"> c) Pattern matching</label>
+        <label><input type="radio" name="q56" value="d"> d) All of above</label>
+    </div>
+    <div class="answer-box" id="answer56" data-correct-answer="d" data-explanation="String operations include assignment (copying), comparison (lexicographic ordering), concatenation, substring extraction, and pattern matching.">
+        Correct Answer: d) All of above<br><br><em>Explanation: String operations include assignment (copying), comparison (lexicographic ordering), concatenation, substring extraction, and pattern matching.</em>
+    </div>
+</div>
+
+<!-- Question 57 -->
+<div class="question">
+    <h3>57. Which of these languages treat character strings as non-primitive?</h3>
+    <div class="options">
+        <label><input type="radio" name="q57" value="a"> a) C, C++</label>
+        <label><input type="radio" name="q57" value="b"> b) Python, Fortran</label>
+        <label><input type="radio" name="q57" value="c"> c) Java, C#</label>
+        <label><input type="radio" name="q57" value="d"> d) SNOBOL4</label>
+    </div>
+    <div class="answer-box" id="answer57" data-correct-answer="a" data-explanation="In C and C++, strings are not primitive types but arrays of characters terminated by a null character ('\0').">
+        Correct Answer: a) C, C++<br><br><em>Explanation: In C and C++, strings are not primitive types but arrays of characters terminated by a null character ('\0').</em>
+    </div>
+</div>
+
+<!-- Question 58 -->
+<div class="question">
+    <h3>58. Which languages use static-length strings?</h3>
+    <div class="options">
+        <label><input type="radio" name="q58" value="a"> a) Python, Ruby</label>
+        <label><input type="radio" name="q58" value="b"> b) C, C++</label>
+        <label><input type="radio" name="q58" value="c"> c) SNOBOL4, Perl, JavaScript</label>
+        <label><input type="radio" name="q58" value="d"> d) COBOL, Java</label>
+    </div>
+    <div class="answer-box" id="answer58" data-correct-answer="d" data-explanation="COBOL and early versions of Java (StringBuffer) used fixed-length strings, though modern Java has dynamic strings.">
+        Correct Answer: d) COBOL, Java<br><br><em>Explanation: COBOL and early versions of Java (StringBuffer) used fixed-length strings, though modern Java has dynamic strings.</em>
+    </div>
+</div>
+
+<!-- Question 59 -->
+<div class="question">
+    <h3>59. Which languages use strings with limited dynamic length?</h3>
+    <div class="options">
+        <label><input type="radio" name="q59" value="a"> a) COBOL, Java</label>
+        <label><input type="radio" name="q59" value="b"> b) C, C++</label>
+        <label><input type="radio" name="q59" value="c"> c) SNOBOL4, Perl, JavaScript</label>
+        <label><input type="radio" name="q59" value="d"> d) Python, Ruby</label>
+    </div>
+    <div class="answer-box" id="answer59" data-correct-answer="b" data-explanation="In C and C++, strings have dynamic length but are limited by the allocated buffer size (null-terminated character arrays).">
+        Correct Answer: b) C, C++<br><br><em>Explanation: In C and C++, strings have dynamic length but are limited by the allocated buffer size (null-terminated character arrays).</em>
+    </div>
+</div>
+
+<!-- Question 60 -->
+<div class="question">
+    <h3>60. Which languages allow dynamic-length strings with no maximum length?</h3>
+    <div class="options">
+        <label><input type="radio" name="q60" value="a"> a) SNOBOL4, Perl, JavaScript</label>
+        <label><input type="radio" name="q60" value="b"> b) C, C++</label>
+        <label><input type="radio" name="q60" value="c"> c) COBOL, Java</label>
+        <label><input type="radio" name="q60" value="d"> d) Assembly, Fortran</label>
+    </div>
+    <div class="answer-box" id="answer60" data-correct-answer="a" data-explanation="Languages like SNOBOL4, Perl, and JavaScript (and most modern scripting languages) have fully dynamic strings that grow as needed.">
+        Correct Answer: a) SNOBOL4, Perl, JavaScript<br><br><em>Explanation: Languages like SNOBOL4, Perl, and JavaScript (and most modern scripting languages) have fully dynamic strings that grow as needed.</em>
+    </div>
+</div>
+
+<!-- Question 61 -->
+<div class="question">
+    <h3>61. What is an advantage of using character strings?</h3>
+    <div class="options">
+        <label><input type="radio" name="q61" value="a"> a) Aid to writability</label>
+        <label><input type="radio" name="q61" value="b"> b) Expressiveness</label>
+        <label><input type="radio" name="q61" value="c"> c) Operations support</label>
+        <label><input type="radio" name="q61" value="d"> d) All of the above</label>
+    </div>
+    <div class="answer-box" id="answer61" data-correct-answer="d" data-explanation="Strings improve writability (easier to write text-processing code), expressiveness (can represent complex text), and come with useful operations.">
+        Correct Answer: d) All of the above<br><br><em>Explanation: Strings improve writability (easier to write text-processing code), expressiveness (can represent complex text), and come with useful operations.</em>
+    </div>
+</div>
+
+<!-- Question 62 -->
+<div class="question">
+    <h3>62. Which type of string uses a compile-time descriptor?</h3>
+    <div class="options">
+        <label><input type="radio" name="q62" value="a"> a) Static-length strings</label>
+        <label><input type="radio" name="q62" value="b"> b) Limited dynamic-length strings</label>
+        <label><input type="radio" name="q62" value="c"> c) Strings with variable runtime length</label>
+        <label><input type="radio" name="q62" value="d"> d) None of the above</label>
+    </div>
+    <div class="answer-box" id="answer62" data-correct-answer="a" data-explanation="Static strings have their length fixed at compile time, so the compiler can generate a descriptor with the fixed length.">
+        Correct Answer: a) Static-length strings<br><br><em>Explanation: Static strings have their length fixed at compile time, so the compiler can generate a descriptor with the fixed length.</em>
+    </div>
+</div>
+
+<!-- Question 63 -->
+<div class="question">
+    <h3>63. Which type of string uses a run-time descriptor?</h3>
+    <div class="options">
+        <label><input type="radio" name="q63" value="a"> a) Static-length strings</label>
+        <label><input type="radio" name="q63" value="b"> b) Limited dynamic-length strings</label>
+        <label><input type="radio" name="q63" value="c"> c) Compile-time fixed strings</label>
+        <label><input type="radio" name="q63" value="d"> d) None of the above</label>
+    </div>
+    <div class="answer-box" id="answer63" data-correct-answer="b" data-explanation="Limited dynamic strings need runtime descriptors because their length can change during execution, though within predefined limits.">
+        Correct Answer: b) Limited dynamic-length strings<br><br><em>Explanation: Limited dynamic strings need runtime descriptors because their length can change during execution, though within predefined limits.</em>
+    </div>
+</div>
+
+<!-- Question 64 -->
+<div class="question">
+    <h3>64. Which statement about arrays is correct?</h3>
+    <div class="options">
+        <label><input type="radio" name="q64" value="a"> a) An array can hold elements of different types in C and Java</label>
+        <label><input type="radio" name="q64" value="b"> b) All elements of an array must be of the same type in most languages</label>
+        <label><input type="radio" name="q64" value="c"> c) Arrays in C# and Java cannot hold object references</label>
+        <label><input type="radio" name="q64" value="d"> d) The position of elements in an array does not matter</label>
+    </div>
+    <div class="answer-box" id="answer64" data-correct-answer="b" data-explanation="In most statically-typed languages, arrays are homogeneous - all elements must be of the same declared type.">
+        Correct Answer: b) All elements of an array must be of the same type in most languages<br><br><em>Explanation: In most statically-typed languages, arrays are homogeneous - all elements must be of the same declared type.</em>
+    </div>
+</div>
+
+<!-- Question 65 -->
+<div class="question">
+    <h3>65. What is array indexing (or subscripting)?</h3>
+    <div class="options">
+        <label><input type="radio" name="q65" value="a"> a) A method to sort array elements</label>
+        <label><input type="radio" name="q65" value="b"> b) A mapping from indices to array elements</label>
+        <label><input type="radio" name="q65" value="c"> c) A way to multiply array elements</label>
+        <label><input type="radio" name="q65" value="d"> d) A technique to copy arrays</label>
+    </div>
+    <div class="answer-box" id="answer65" data-correct-answer="b" data-explanation="Array indexing is the mechanism that maps an index (position) to the corresponding element value stored at that position.">
+        Correct Answer: b) A mapping from indices to array elements<br><br><em>Explanation: Array indexing is the mechanism that maps an index (position) to the corresponding element value stored at that position.</em>
+    </div>
+</div>
+
+<!-- Question 66 -->
+<div class="question">
+    <h3>66. Which type of values are allowed as array indices in C, FORTRAN, and Java?</h3>
+    <div class="options">
+        <label><input type="radio" name="q66" value="a"> a) Float types</label>
+        <label><input type="radio" name="q66" value="b"> b) Integer types</label>
+        <label><input type="radio" name="q66" value="c"> c) String types</label>
+        <label><input type="radio" name="q66" value="d"> d) Boolean types</label>
+    </div>
+    <div class="answer-box" id="answer66" data-correct-answer="b" data-explanation="C, FORTRAN, and Java require integer indices for arrays. Some languages (like Python) accept other types as keys in dictionary-like structures.">
+        Correct Answer: b) Integer types<br><br><em>Explanation: C, FORTRAN, and Java require integer indices for arrays. Some languages (like Python) accept other types as keys in dictionary-like structures.</em>
+    </div>
+</div>
+
+<!-- Question 67 -->
+<div class="question">
+    <h3>67. Why is range checking important for array indices?</h3>
+    <div class="options">
+        <label><input type="radio" name="q67" value="a"> a) To make arrays slower</label>
+        <label><input type="radio" name="q67" value="b"> b) To avoid accessing invalid memory</label>
+        <label><input type="radio" name="q67" value="c"> c) To allow only integer indices</label>
+        <label><input type="radio" name="q67" value="d"> d) To automatically resize arrays</label>
+    </div>
+    <div class="answer-box" id="answer67" data-correct-answer="b" data-explanation="Range checking prevents buffer overflows and memory corruption by ensuring indices stay within allocated array bounds.">
+        Correct Answer: b) To avoid accessing invalid memory<br><br><em>Explanation: Range checking prevents buffer overflows and memory corruption by ensuring indices stay within allocated array bounds.</em>
+    </div>
+</div>
+
+<!-- Question 68 -->
+<div class="question">
+    <h3>68. Which type of variable has memory allocated before execution and stays fixed throughout the program?</h3>
+    <div class="options">
+        <label><input type="radio" name="q68" value="a"> a) Static</label>
+        <label><input type="radio" name="q68" value="b"> b) Stack-Dynamic</label>
+        <label><input type="radio" name="q68" value="c"> c) Explicit Heap-Dynamic</label>
+        <label><input type="radio" name="q68" value="d"> d) Implicit Heap-Dynamic</label>
+    </div>
+    <div class="answer-box" id="answer68" data-correct-answer="a" data-explanation="Static variables are allocated at compile/link time and retain the same memory location throughout program execution. e.g. static int count = 0;">
+        Correct Answer: a) Static<br><br><em>Explanation: Static variables are allocated at compile/link time and retain the same memory location throughout program execution.</em>
+    </div>
+</div>
+
+<!-- Question 69 -->
+<div class="question">
+    <h3>69. Which type of variable has its storage allocated when the declaration is executed, while other attributes are statically bound?</h3>
+    <div class="options">
+        <label><input type="radio" name="q69" value="a"> a) Static</label>
+        <label><input type="radio" name="q69" value="b"> b) Explicit Heap-Dynamic</label>
+        <label><input type="radio" name="q69" value="c"> c) Stack-Dynamic</label>
+        <label><input type="radio" name="q69" value="d"> d) Implicit Heap-Dynamic</label>
+    </div>
+    <div class="answer-box" id="answer69" data-correct-answer="c" data-explanation="e.g. void func() { الذاكرة تتخصص عند استدعاء الدالة // ;x int }">
+        Correct Answer: c) Stack-Dynamic<br><br><em>Explanation: e.g. void func() { الذاكرة تتخصص عند استدعاء الدالة // ;x int }</em>
+    </div>
+</div>
+
+<!-- Question 70 -->
+<div class="question">
+    <h3>70. Which type of variable is allocated and deallocated on the heap by programmer directives during execution?</h3>
+    <div class="options">
+        <label><input type="radio" name="q70" value="a"> a) Static</label>
+        <label><input type="radio" name="q70" value="b"> b) Explicit Heap-Dynamic</label>
+        <label><input type="radio" name="q70" value="c"> c) Stack-Dynamic</label>
+        <label><input type="radio" name="q70" value="d"> d) Implicit Heap-Dynamic</label>
+    </div>
+    <div class="answer-box" id="answer70" data-correct-answer="b" data-explanation="Explicit heap-dynamic variables (like objects created with 'new' in Java/C++) require manual allocation/deallocation by the programmer.">
+        Correct Answer: b) Explicit Heap-Dynamic<br><br><em>Explanation: Explicit heap-dynamic variables (like objects created with 'new' in Java/C++) require manual allocation/deallocation by the programmer.</em>
+    </div>
+</div>
+
+<!-- Question 71 -->
+<div class="question">
+    <h3>71. Which type of variable is allocated and deallocated on the heap automatically through assignment statements?</h3>
+    <div class="options">
+        <label><input type="radio" name="q71" value="a"> a) Static</label>
+        <label><input type="radio" name="q71" value="b"> b) Explicit Heap-Dynamic</label>
+        <label><input type="radio" name="q71" value="c"> c) Stack-Dynamic</label>
+        <label><input type="radio" name="q71" value="d"> d) Implicit Heap-Dynamic</label>
+    </div>
+    <div class="answer-box" id="answer71" data-correct-answer="d" data-explanation="Implicit heap-dynamic variables (like strings in Python/JavaScript) automatically allocate/deallocate heap memory based on assignment and garbage collection.">
+        Correct Answer: d) Implicit Heap-Dynamic<br><br><em>Explanation: Implicit heap-dynamic variables (like strings in Python/JavaScript) automatically allocate/deallocate heap memory based on assignment and garbage collection.</em>
+    </div>
+</div>
+
+<!-- Question 72 -->
+<div class="question">
+    <h3>72. Which of the following is true about array initialization?</h3>
+    <div class="options">
+        <label><input type="radio" name="q72" value="a"> a) Arrays cannot be initialized when allocated</label>
+        <label><input type="radio" name="q72" value="b"> b) Some languages allow initialization at the time of allocation</label>
+        <label><input type="radio" name="q72" value="c"> c) Initialization must always happen after runtime</label>
+        <label><input type="radio" name="q72" value="d"> d) Array size cannot be fixed</label>
+    </div>
+    <div class="answer-box" id="answer72" data-correct-answer="b" data-explanation="Many languages support array initialization at declaration time, e.g., int[] arr = {1, 2, 3}; in Java/C.">
+        Correct Answer: b) Some languages allow initialization at the time of allocation<br><br><em>Explanation: Many languages support array initialization at declaration time, e.g., int[] arr = {1, 2, 3}; in Java/C.</em>
+    </div>
+</div>
+
+<!-- Question 73 -->
+<div class="question">
+    <h3>73. What is a heterogeneous array?</h3>
+    <div class="options">
+        <label><input type="radio" name="q73" value="a"> a) An array where all elements must be of the same type</label>
+        <label><input type="radio" name="q73" value="b"> b) An array where elements can be of different types</label>
+        <label><input type="radio" name="q73" value="c"> c) An array that can only store integers</label>
+        <label><input type="radio" name="q73" value="d"> d) An array with fixed size</label>
+    </div>
+    <div class="answer-box" id="answer73" data-correct-answer="b" data-explanation="Heterogeneous arrays (like Python lists or JavaScript arrays) can contain elements of different types within the same array.">
+        Correct Answer: b) An array where elements can be of different types<br><br><em>Explanation: Heterogeneous arrays (like Python lists or JavaScript arrays) can contain elements of different types within the same array.</em>
+    </div>
+</div>
+
+<!-- Question 74 -->
+<div class="question">
+    <h3>74. Which languages support heterogeneous arrays?</h3>
+    <div class="options">
+        <label><input type="radio" name="q74" value="a"> a) C, C++</label>
+        <label><input type="radio" name="q74" value="b"> b) Perl, Python, JavaScript, Ruby</label>
+        <label><input type="radio" name="q74" value="c"> c) Java, C#</label>
+        <label><input type="radio" name="q74" value="d"> d) Fortran, Pascal</label>
+    </div>
+    <div class="answer-box" id="answer74" data-correct-answer="b" data-explanation="Dynamic scripting languages like Perl, Python, JavaScript, and Ruby support arrays/lists with mixed types.">
+        Correct Answer: b) Perl, Python, JavaScript, Ruby<br><br><em>Explanation: Dynamic scripting languages like Perl, Python, JavaScript, and Ruby support arrays/lists with mixed types.</em>
+    </div>
+</div>
+
+<!-- Question 75 -->
+<div class="question">
+    <h3>75. What are names associated with in programming?</h3>
+    <div class="options">
+        <label><input type="radio" name="q75" value="a"> a) Subprograms</label>
+        <label><input type="radio" name="q75" value="b"> b) Formal Parameters</label>
+        <label><input type="radio" name="q75" value="c"> c) Other Program Constructs</label>
+        <label><input type="radio" name="q75" value="d"> d) All of the Above</label>
+    </div>
+    <div class="answer-box" id="answer75" data-correct-answer="d" data-explanation="Names (identifiers) can refer to variables, functions, parameters, classes, modules, and other program entities.">
+        Correct Answer: d) All of the Above<br><br><em>Explanation: Names (identifiers) can refer to variables, functions, parameters, classes, modules, and other program entities.</em>
+    </div>
+</div>
+
+<!-- Question 76 -->
+<div class="question">
+    <h3>76. What does the term "identifier" refer to in the context of PLs?</h3>
+    <div class="options">
+        <label><input type="radio" name="q76" value="a"> a) A type of variable</label>
+        <label><input type="radio" name="q76" value="b"> b) A term used interchangeably with name</label>
+        <label><input type="radio" name="q76" value="c"> c) A method of data storage</label>
+        <label><input type="radio" name="q76" value="d"> d) A programming language feature</label>
+    </div>
+    <div class="answer-box" id="answer76" data-correct-answer="b" data-explanation="'Identifier' is synonymous with 'name' - it's a sequence of characters used to identify variables, functions, etc.">
+        Correct Answer: b) A term used interchangeably with name<br><br><em>Explanation: 'Identifier' is synonymous with 'name' - it's a sequence of characters used to identify variables, functions, etc.</em>
+    </div>
+</div>
+
+<!-- Question 77 -->
+<div class="question">
+    <h3>77. What must all variable names in PHP begin with?</h3>
+    <div class="options">
+        <label><input type="radio" name="q77" value="a"> a) &</label>
+        <label><input type="radio" name="q77" value="b"> b) @</label>
+        <label><input type="radio" name="q77" value="c"> c) $</label>
+        <label><input type="radio" name="q77" value="d"> d) #</label>
+    </div>
+    <div class="answer-box" id="answer77" data-correct-answer="c" data-explanation="PHP requires variable names to start with a dollar sign ($), making them easily distinguishable from other language elements.">
+        Correct Answer: c) $<br><br><em>Explanation: PHP requires variable names to start with a dollar sign ($), making them easily distinguishable from other language elements.</em>
+    </div>
+</div>
+
+<!-- Question 78 -->
+<div class="question">
+    <h3>78. Which of the following statements is true regarding variables?</h3>
+    <div class="options">
+        <label><input type="radio" name="q78" value="a"> a) Variables are always constant values</label>
+        <label><input type="radio" name="q78" value="b"> b) A variable is synonymous with a function</label>
+        <label><input type="radio" name="q78" value="c"> c) Variables can represent both single and multiple memory cells</label>
+        <label><input type="radio" name="q78" value="d"> d) Variables do not occupy any memory space</label>
+    </div>
+    <div class="answer-box" id="answer78" data-correct-answer="c" data-explanation="A variable can represent a single memory cell (like an integer) or multiple cells (like an array or structure).">
+        Correct Answer: c) Variables can represent both single and multiple memory cells<br><br><em>Explanation: A variable can represent a single memory cell (like an integer) or multiple cells (like an array or structure).</em>
+    </div>
+</div>
+
+<!-- Question 79 -->
+<div class="question">
+    <h3>79. In PLs, an I-value is associated with which concept?</h3>
+    <div class="options">
+        <label><input type="radio" name="q79" value="a"> a) The output of a function</label>
+        <label><input type="radio" name="q79" value="b"> b) The memory address of a variable</label>
+        <label><input type="radio" name="q79" value="c"> c) The data type of a variable</label>
+        <label><input type="radio" name="q79" value="d"> d) The operations that can be performed on a variable</label>
+    </div>
+    <div class="answer-box" id="answer79" data-correct-answer="b" data-explanation="In programming, an l-value (left-value) refers to an object that occupies a specific, identifiable location in memory, allowing it to appear on the left side of an assignment operator to store a value.">
+        Correct Answer: b) The memory address of a variable<br><br><em>Explanation: In programming, an l-value (left-value) refers to an object that occupies a specific, identifiable location in memory, allowing it to appear on the left side of an assignment operator to store a value.</em>
+    </div>
+</div>
+
+<!-- Question 80 -->
+<div class="question">
+    <h3>80. In PLs, an r-value is associated with which concept?</h3>
+    <div class="options">
+        <label><input type="radio" name="q80" value="a"> a) The memory address where the variable is stored</label>
+        <label><input type="radio" name="q80" value="b"> b) The actual value stored in the variable</label>
+        <label><input type="radio" name="q80" value="c"> c) The result of an expression using the variable</label>
+        <label><input type="radio" name="q80" value="d"> d) The symbolic name used to refer to the variable</label>
+    </div>
+    <div class="answer-box" id="answer80" data-correct-answer="b" data-explanation="The r-value (read value) is the actual data/content stored in a variable's memory location.">
+        Correct Answer: b) The actual value stored in the variable<br><br><em>Explanation: The r-value (read value) is the actual data/content stored in a variable's memory location.</em>
+    </div>
+</div>
+
+<!-- Question 81 -->
+<div class="question">
+    <h3>81. What does variable type determine?</h3>
+    <div class="options">
+        <label><input type="radio" name="q81" value="a"> a) The appearance of the variable</label>
+        <label><input type="radio" name="q81" value="b"> b) The range of values and operations defined for the variable type</label>
+        <label><input type="radio" name="q81" value="c"> c) The programming language used</label>
+        <label><input type="radio" name="q81" value="d"> d) The speed of execution of the program</label>
+    </div>
+    <div class="answer-box" id="answer81" data-correct-answer="b" data-explanation="The type determines what values a variable can hold (e.g., integer, float, string) and what operations can be performed on it.">
+        Correct Answer: b) The range of values and operations defined for the variable type<br><br><em>Explanation: The type determines what values a variable can hold (e.g., integer, float, string) and what operations can be performed on it.</em>
+    </div>
+</div>
+
+<!-- Question 82 -->
+<div class="question">
+    <h3>82. Which of the following is an example of binding at language design time?</h3>
+    <div class="options">
+        <label><input type="radio" name="q82" value="a"> a) Binding '+' symbol to the addition operation</label>
+        <label><input type="radio" name="q82" value="b"> b) Assigning the value '0' to an integer variable</label>
+        <label><input type="radio" name="q82" value="c"> c) Specifying 4 memory cells to an integer datatype</label>
+        <label><input type="radio" name="q82" value="d"> d) All of the above are correct</label>
+    </div>
+    <div class="answer-box" id="answer82" data-correct-answer="a" data-explanation="Language design time bindings include assigning meanings to operators and keywords that are fixed in the language specification.">
+        Correct Answer: a) Binding '+' symbol to the addition operation<br><br><em>Explanation: Language design time bindings include assigning meanings to operators and keywords that are fixed in the language specification.</em>
+    </div>
+</div>
+
+<!-- Question 83 -->
+<div class="question">
+    <h3>83. Which of the following is an example of binding at implementation time?</h3>
+    <div class="options">
+        <label><input type="radio" name="q83" value="a"> a) Assigning the value '0' to an integer variable</label>
+        <label><input type="radio" name="q83" value="b"> b) Assigning the value '0.0' to a floating variable</label>
+        <label><input type="radio" name="q83" value="c"> c) Assigning the value '1234567891' to an integer variable</label>
+        <label><input type="radio" name="q83" value="d"> d) Specifying the range of possible integer values to an integer variable</label>
+    </div>
+    <div class="answer-box" id="answer83" data-correct-answer="d" data-explanation="Implementation time bindings include decisions about how types are represented in memory (e.g., 32-bit vs 64-bit integers).">
+        Correct Answer: d) Specifying the range of possible integer values to an integer variable<br><br><em>Explanation: Implementation time bindings include decisions about how types are represented in memory (e.g., 32-bit vs 64-bit integers).</em>
+    </div>
+</div>
+
+<!-- Question 84 -->
+<div class="question">
+    <h3>84. Which of the following is an example of binding at compile time?</h3>
+    <div class="options">
+        <label><input type="radio" name="q84" value="a"> a) Binding a variable to a type</label>
+        <label><input type="radio" name="q84" value="b"> b) Binding '*' symbol to the multiplication operation</label>
+        <label><input type="radio" name="q84" value="c"> c) Assigning the value '0.0' to a floating variable</label>
+        <label><input type="radio" name="q84" value="d"> d) All of the above are correct</label>
+    </div>
+    <div class="answer-box" id="answer84" data-correct-answer="a" data-explanation="Compile time bindings include type bindings in statically-typed languages where the type is checked and fixed during compilation.">
+        Correct Answer: a) Binding a variable to a type<br><br><em>Explanation: Compile time bindings include type bindings in statically-typed languages where the type is checked and fixed during compilation.</em>
+    </div>
+</div>
+
+<!-- Question 85 -->
+<div class="question">
+    <h3>85. Which of the following statements has a portion that binds at link time?</h3>
+    <div class="options">
+        <label><input type="radio" name="q85" value="a"> a) int count;</label>
+        <label><input type="radio" name="q85" value="b"> b) int min = 0;</label>
+        <label><input type="radio" name="q85" value="c"> c) int max = Math.max(2, 4);</label>
+        <label><input type="radio" name="q85" value="d"> d) float avg = 0.0;</label>
+    </div>
+    <div class="answer-box" id="answer85" data-correct-answer="c" data-explanation="The call to Math.max() binds to the library function code at link time when external references are resolved.">
+        Correct Answer: c) int max = Math.max(2, 4);<br><br><em>Explanation: The call to Math.max() binds to the library function code at link time when external references are resolved.</em>
+    </div>
+</div>
+
+<!-- Question 86 -->
+<div class="question">
+    <h3>86. In most PLs, a valid name usually consists of:</h3>
+    <div class="options">
+        <label><input type="radio" name="q86" value="a"> a) A digit followed by letters or underscores</label>
+        <label><input type="radio" name="q86" value="b"> b) Any sequence of symbols, letters, or digits</label>
+        <label><input type="radio" name="q86" value="c"> c) A letter followed by letters, digits, or underscores</label>
+        <label><input type="radio" name="q86" value="d"> d) Only letters or digits, no underscores allowed</label>
+    </div>
+    <div class="answer-box" id="answer86" data-correct-answer="c" data-explanation="Most languages require identifiers to start with a letter (or underscore), followed by letters, digits, or underscores.">
+        Correct Answer: c) A letter followed by letters, digits, or underscores<br><br><em>Explanation: Most languages require identifiers to start with a letter (or underscore), followed by letters, digits, or underscores.</em>
+    </div>
+</div>
+
+<!-- Question 87 -->
+<div class="question">
+    <h3>87. In Ruby, what does a variable name starting with @ or @@ indicate?</h3>
+    <div class="options">
+        <label><input type="radio" name="q87" value="a"> a) @ is a local variable, @@ is a global variable</label>
+        <label><input type="radio" name="q87" value="b"> b) @ is an instance variable, @@ is a class variable</label>
+        <label><input type="radio" name="q87" value="c"> c) @ is a constant, @@ is a method</label>
+        <label><input type="radio" name="q87" value="d"> d) Both @ and @@ are reserved keywords</label>
+    </div>
+    <div class="answer-box" id="answer87" data-correct-answer="b" data-explanation="In Ruby, @variable is an instance variable (per object), and @@variable is a class variable (shared by all instances of the class).">
+        Correct Answer: b) @ is an instance variable, @@ is a class variable<br><br><em>Explanation: In Ruby, @variable is an instance variable (per object), and @@variable is a class variable (shared by all instances of the class).</em>
+    </div>
+</div>
+
+<!-- Question 88 -->
+<div class="question">
+    <h3>88. What does case sensitivity in names mean?</h3>
+    <div class="options">
+        <label><input type="radio" name="q88" value="a"> a) Uppercase and lowercase letters are the same</label>
+        <label><input type="radio" name="q88" value="b"> b) It depends on the variable type</label>
+        <label><input type="radio" name="q88" value="c"> c) Uppercase and lowercase letters are distinct</label>
+        <label><input type="radio" name="q88" value="d"> d) Case only matters for keywords, not variables</label>
+    </div>
+    <div class="answer-box" id="answer88" data-correct-answer="c" data-explanation="In case-sensitive languages (like C, Java, Python), 'Variable', 'variable', and 'VARIABLE' are different identifiers. e.g. WORD ≠ word">
+        Correct Answer: c) Uppercase and lowercase letters are distinct<br><br><em>Explanation: In case-sensitive languages (like C, Java, Python), 'Variable', 'variable', and 'VARIABLE' are different identifiers. e.g. WORD ≠ word</em>
+    </div>
+</div>
+
+<!-- Question 89 -->
+<div class="question">
+    <h3>89. What is a disadvantage of case-sensitive names?</h3>
+    <div class="options">
+        <label><input type="radio" name="q89" value="a"> a) Readability issues</label>
+        <label><input type="radio" name="q89" value="b"> b) Slower execution</label>
+        <label><input type="radio" name="q89" value="c"> c) More memory used</label>
+        <label><input type="radio" name="q89" value="d"> d) Compiler renames similar names</label>
+    </div>
+    <div class="answer-box" id="answer89" data-correct-answer="a" data-explanation="Case sensitivity can lead to confusion and errors when similar names differ only in case, making code harder to read and debug.">
+        Correct Answer: a) Readability issues<br><br><em>Explanation: Case sensitivity can lead to confusion and errors when similar names differ only in case, making code harder to read and debug.</em>
+    </div>
+</div>
+
+<!-- Question 90 -->
+<div class="question">
+    <h3>90. What is a keyword in programming?</h3>
+    <div class="options">
+        <label><input type="radio" name="q90" value="a"> a) A word that is special only in certain contexts</label>
+        <label><input type="radio" name="q90" value="b"> b) A word that cannot be used as a variable name</label>
+        <label><input type="radio" name="q90" value="c"> c) A word that is always treated as a comment</label>
+        <label><input type="radio" name="q90" value="d"> d) A word used only in libraries</label>
+    </div>
+    <div class="answer-box" id="answer90" data-correct-answer="a" data-explanation="Keywords have special meaning in specific contexts (like 'if' in conditionals) but might be usable as identifiers elsewhere in some languages.">
+        Correct Answer: a) A word that is special only in certain contexts<br><br><em>Explanation: Keywords have special meaning in specific contexts (like 'if' in conditionals) but might be usable as identifiers elsewhere in some languages.</em>
+    </div>
+</div>
+
+<!-- Question 91 -->
+<div class="question">
+    <h3>91. What is a reserved word in programming?</h3>
+    <div class="options">
+        <label><input type="radio" name="q91" value="a"> a) A special word that can be used as a variable in some contexts</label>
+        <label><input type="radio" name="q91" value="b"> b) A special word that cannot be used as a user-defined name</label>
+        <label><input type="radio" name="q91" value="c"> c) A word used for comments only</label>
+        <label><input type="radio" name="q91" value="d"> d) A word that is never special in any context</label>
+    </div>
+    <div class="answer-box" id="answer91" data-correct-answer="b" data-explanation="Reserved words are permanently reserved for language features and cannot be used as identifiers (unlike keywords which might be context-dependent).">
+        Correct Answer: b) A special word that cannot be used as a user-defined name<br><br><em>Explanation: Reserved words are permanently reserved for language features and cannot be used as identifiers (unlike keywords which might be context-dependent).</em>
+    </div>
+</div>
+
+<!-- Question 92 -->
+<div class="question">
+    <h3>92. In PLs, what is a problem with too many reserved words?</h3>
+    <div class="options">
+        <label><input type="radio" name="q92" value="a"> a) Many identifiers will automatically be renamed by the compiler</label>
+        <label><input type="radio" name="q92" value="b"> b) Many names can never be used in loops</label>
+        <label><input type="radio" name="q92" value="c"> c) Many name collisions can occur with user-defined identifiers</label>
+        <label><input type="radio" name="q92" value="d"> d) Many reserved words become comments automatically</label>
+    </div>
+    <div class="answer-box" id="answer92" data-correct-answer="c" data-explanation="Too many reserved words limit the available names programmers can use, increasing the chance of wanting to use a name that's already reserved.">
+        Correct Answer: c) Many name collisions can occur with user-defined identifiers<br><br><em>Explanation: Too many reserved words limit the available names programmers can use, increasing the chance of wanting to use a name that's already reserved.</em>
+    </div>
+</div>
+
+<!-- Question 93 -->
+<div class="question">
+    <h3>93. Which of the following is true about variables?</h3>
+    <div class="options">
+        <label><input type="radio" name="q93" value="a"> a) A variable can have different addresses at different times</label>
+        <label><input type="radio" name="q93" value="b"> b) A variable can have different addresses at different places</label>
+        <label><input type="radio" name="q93" value="c"> c) If two variables access the same memory, they are aliases</label>
+        <label><input type="radio" name="q93" value="d"> d) All of the above</label>
+    </div>
+    <div class="answer-box" id="answer93" data-correct-answer="d" data-explanation="Variables can change addresses (dynamic allocation), exist in multiple scopes, and aliases occur when different names refer to same memory.">
+        Correct Answer: d) All of the above<br><br><em>Explanation: Variables can change addresses (dynamic allocation), exist in multiple scopes, and aliases occur when different names refer to same memory.</em>
+    </div>
+</div>
+
+<!-- Question 94 -->
+<div class="question">
+    <h3>94. What is a binding in programming?</h3>
+    <div class="options">
+        <label><input type="radio" name="q94" value="a"> a) A method to speed up the execution time</label>
+        <label><input type="radio" name="q94" value="b"> b) A link between a variable and its type or value</label>
+        <label><input type="radio" name="q94" value="c"> c) A way to delete a variable or its value</label>
+        <label><input type="radio" name="q94" value="d"> d) A special kind of loop</label>
+    </div>
+    <div class="answer-box" id="answer94" data-correct-answer="b" data-explanation="Binding is the association between an entity (variable) and its properties (type, value, address, etc.) at specific times.">
+        Correct Answer: b) A link between a variable and its type or value<br><br><em>Explanation: Binding is the association between an entity (variable) and its properties (type, value, address, etc.) at specific times.</em>
+    </div>
+</div>
+
+<!-- Question 95 -->
+<div class="question">
+    <h3>95. Which of the following is an example of binding at load time?</h3>
+    <div class="options">
+        <label><input type="radio" name="q95" value="a"> a) Assigning a value 0.0 to a floating variable</label>
+        <label><input type="radio" name="q95" value="b"> b) Binding a C or C++ static variable to a memory cell</label>
+        <label><input type="radio" name="q95" value="c"> c) Specifying the range of possible integer values for an integer type</label>
+        <label><input type="radio" name="q95" value="d"> d) Binding the + symbol to the addition operation</label>
+    </div>
+    <div class="answer-box" id="answer95" data-correct-answer="b" data-explanation="Load time binding occurs when the program is loaded into memory. Static variables in C/C++ get their actual memory addresses at this time.">
+        Correct Answer: b) Binding a C or C++ static variable to a memory cell<br><br><em>Explanation: Load time binding occurs when the program is loaded into memory. Static variables in C/C++ get their actual memory addresses at this time.</em>
+    </div>
+</div>
+
+<!-- Question 96 -->
+<div class="question">
+    <h3>96. Which of the following is an example of binding at run time?</h3>
+    <div class="options">
+        <label><input type="radio" name="q96" value="a"> a) Binding the + symbol to the addition operation</label>
+        <label><input type="radio" name="q96" value="b"> b) Assigning the value 0.0 to a floating variable</label>
+        <label><input type="radio" name="q96" value="c"> c) Binding a C or C++ static variable to a memory cell</label>
+        <label><input type="radio" name="q96" value="d"> d) Binding a non-static local variable to a memory cell</label>
+    </div>
+    <div class="answer-box" id="answer96" data-correct-answer="d" data-explanation="Runtime binding happens during program execution. Non-static local variables (automatic variables) get memory allocated when their function is called.">
+        Correct Answer: d) Binding a non-static local variable to a memory cell<br><br><em>Explanation: Runtime binding happens during program execution. Non-static local variables (automatic variables) get memory allocated when their function is called.</em>
+    </div>
+</div>
+
+<!-- Question 97 -->
+<div class="question">
+    <h3>97. Which of the following defines static binding?</h3>
+    <div class="options">
+        <label><input type="radio" name="q97" value="a"> a) A binding that is determined by the user at run time</label>
+        <label><input type="radio" name="q97" value="b"> b) A binding that occurs during execution and can change</label>
+        <label><input type="radio" name="q97" value="c"> c) A binding that occurs before run time and remains unchanged</label>
+        <label><input type="radio" name="q97" value="d"> d) A binding that occurs only in interpreted languages</label>
+    </div>
+    <div class="answer-box" id="answer97" data-correct-answer="c" data-explanation="Static binding (early binding) happens at compile time or before execution and doesn't change during program execution.">
+        Correct Answer: c) A binding that occurs before run time and remains unchanged<br><br><em>Explanation: Static binding (early binding) happens at compile time or before execution and doesn't change during program execution.</em>
+    </div>
+</div>
+
+<!-- Question 98 -->
+<div class="question">
+    <h3>98. Which of the following defines dynamic binding?</h3>
+    <div class="options">
+        <label><input type="radio" name="q98" value="a"> a) A binding that is determined by the user at run time</label>
+        <label><input type="radio" name="q98" value="b"> b) A binding that occurs during execution and can change</label>
+        <label><input type="radio" name="q98" value="c"> c) A binding that occurs before run time and remains unchanged</label>
+        <label><input type="radio" name="q98" value="d"> d) A binding that occurs only in interpreted languages</label>
+    </div>
+    <div class="answer-box" id="answer98" data-correct-answer="b" data-explanation="Dynamic binding (late binding) occurs during program execution and can change, allowing for polymorphism and flexibility.">
+        Correct Answer: b) A binding that occurs during execution and can change<br><br><em>Explanation: Dynamic binding (late binding) occurs during program execution and can change, allowing for polymorphism and flexibility.</em>
+    </div>
+</div>
+
+<!-- Question 99 -->
+<div class="question">
+    <h3>99. Which defines explicit declaration in static type binding?</h3>
+    <div class="options">
+        <label><input type="radio" name="q99" value="a"> a) A program statement used for declaring the types of variables</label>
+        <label><input type="radio" name="q99" value="b"> b) A default mechanism for specifying types of variables</label>
+        <label><input type="radio" name="q99" value="c"> c) Assigning values to variables without specifying type</label>
+        <label><input type="radio" name="q99" value="d"> d) Declaring variables at run time</label>
+    </div>
+    <div class="answer-box" id="answer99" data-correct-answer="a" data-explanation="Explicit declaration requires the programmer to explicitly state the type of each variable (e.g., 'int x;' in C/Java).">
+        Correct Answer: a) A program statement used for declaring the types of variables<br><br><em>Explanation: Explicit declaration requires the programmer to explicitly state the type of each variable (e.g., 'int x;' in C/Java).</em>
+    </div>
+</div>
+
+<!-- Question 100 -->
+<div class="question">
+    <h3>100. Which defines implicit declaration in static type binding?</h3>
+    <div class="options">
+        <label><input type="radio" name="q100" value="a"> a) A program statement used for declaring the types of variables</label>
+        <label><input type="radio" name="q100" value="b"> b) A default mechanism for specifying types of variables</label>
+        <label><input type="radio" name="q100" value="c"> c) Assigning values to variables without specifying type</label>
+        <label><input type="radio" name="q100" value="d"> d) Declaring variables at run time</label>
+    </div>
+    <div class="answer-box" id="answer100" data-correct-answer="b" data-explanation="Implicit declaration uses naming conventions or defaults (e.g., in Fortran, variables starting with I-N are integers, others are reals).">
+        Correct Answer: b) A default mechanism for specifying types of variables<br><br><em>Explanation: Implicit declaration uses naming conventions or defaults (e.g., in Fortran, variables starting with I-N are integers, others are reals).</em>
+    </div>
+</div>
+
+<!-- Question 101 -->
+<div class="question">
+    <h3>101. Which is true about type inferencing in static type binding?</h3>
+    <div class="options">
+        <label><input type="radio" name="q101" value="a"> a) Programmer must always explicitly declare the type of every variable</label>
+        <label><input type="radio" name="q101" value="b"> b) It determines the type of variable from its initial value or context</label>
+        <label><input type="radio" name="q101" value="c"> c) Variable types are assigned dynamically at run time</label>
+        <label><input type="radio" name="q101" value="d"> d) Types are ignored and all variables are generic objects</label>
+    </div>
+    <div class="answer-box" id="answer101" data-correct-answer="b" data-explanation="Type inference automatically deduces types from context, as in 'var x = 5;' (C#, Swift) where x is inferred to be int.">
+        Correct Answer: b) It determines the type of variable from its initial value or context<br><br><em>Explanation: Type inference automatically deduces types from context, as in 'var x = 5;' (C#, Swift) where x is inferred to be int.</em>
+    </div>
+</div>
+
+<!-- Question 102 -->
+<div class="question">
+    <h3>102. Which is true about dynamic type binding?</h3>
+    <div class="options">
+        <label><input type="radio" name="q102" value="a"> a) It requires the programmer to declare all variable types explicitly</label>
+        <label><input type="radio" name="q102" value="b"> b) It allows flexibility, but has high cost and makes error detection harder</label>
+        <label><input type="radio" name="q102" value="c"> c) Variables cannot change type during execution</label>
+        <label><input type="radio" name="q102" value="d"> d) It always improves program efficiency</label>
+    </div>
+    <div class="answer-box" id="answer102" data-correct-answer="b" data-explanation="Dynamic typing (as in Python/JavaScript) is flexible but requires runtime type checks, has performance overhead, and delays type errors to runtime.">
+        Correct Answer: b) It allows flexibility, but has high cost and makes error detection harder<br><br><em>Explanation: Dynamic typing (as in Python/JavaScript) is flexible but requires runtime type checks, has performance overhead, and delays type errors to runtime.</em>
+    </div>
+</div>
+
+<!-- Question 103 -->
+<div class="question">
+    <h3>103. What does the lifetime of a variable refer to?</h3>
+    <div class="options">
+        <label><input type="radio" name="q103" value="a"> a) The type of the variable</label>
+        <label><input type="radio" name="q103" value="b"> b) The scope of the variable in the program</label>
+        <label><input type="radio" name="q103" value="c"> c) The period during which the variable is associated with a memory cell</label>
+        <label><input type="radio" name="q103" value="d"> d) The initial value assigned to the variable</label>
+    </div>
+    <div class="answer-box" id="answer103" data-correct-answer="c" data-explanation="Lifetime is the duration from when memory is allocated for a variable to when it's deallocated. Different from scope (visibility).">
+        Correct Answer: c) The period during which the variable is associated with a memory cell<br><br><em>Explanation: Lifetime is the duration from when memory is allocated for a variable to when it's deallocated. Different from scope (visibility).</em>
+    </div>
+</div>
+
+<!-- Question 104 -->
+<div class="question">
+    <h3>104. What is the main advantage of explicit heap-dynamic variables?</h3>
+    <div class="options">
+        <label><input type="radio" name="q104" value="a"> a) They allow dynamic memory for structures like linked lists and trees</label>
+        <label><input type="radio" name="q104" value="b"> b) They make programs more efficient by using less CPU time</label>
+        <label><input type="radio" name="q104" value="c"> c) They make programs more reliable by preventing memory errors</label>
+        <label><input type="radio" name="q104" value="d"> d) They store data in fixed memory locations at compile time</label>
+    </div>
+    <div class="answer-box" id="answer104" data-correct-answer="a" data-explanation="Heap allocation enables dynamic data structures that grow/shrink at runtime, essential for many algorithms and applications.">
+        Correct Answer: a) They allow dynamic memory for structures like linked lists and trees<br><br><em>Explanation: Heap allocation enables dynamic data structures that grow/shrink at runtime, essential for many algorithms and applications.</em>
+    </div>
+</div>
+
+<!-- Question 105 -->
+<div class="question">
+    <h3>105. What does the scope of a variable describe?</h3>
+    <div class="options">
+        <label><input type="radio" name="q105" value="a"> a) The type of the variable in memory</label>
+        <label><input type="radio" name="q105" value="b"> b) The range of statements where the variable is visible</label>
+        <label><input type="radio" name="q105" value="c"> c) The lifetime of the variable</label>
+        <label><input type="radio" name="q105" value="d"> d) The value stored in the variable</label>
+    </div>
+    <div class="answer-box" id="answer105" data-correct-answer="b" data-explanation="Scope defines where in the code a variable can be accessed. Different from lifetime (duration of existence).">
+        Correct Answer: b) The range of statements where the variable is visible<br><br><em>Explanation: Scope defines where in the code a variable can be accessed. Different from lifetime (duration of existence).</em>
+    </div>
+</div>
+
+<!-- Question 106 -->
+<div class="question">
+    <h3>106. What is a local variable?</h3>
+    <div class="options">
+        <label><input type="radio" name="q106" value="a"> a) A variable declared outside all program units</label>
+        <label><input type="radio" name="q106" value="b"> b) A variable declared in another program unit</label>
+        <label><input type="radio" name="q106" value="c"> c) A variable declared inside the current program unit</label>
+        <label><input type="radio" name="q106" value="d"> d) A variable declared in all program units</label>
+    </div>
+    <div class="answer-box" id="answer106" data-correct-answer="c" data-explanation="A local variable is defined within a function/method/block and is only accessible within that specific scope.">
+        Correct Answer: c) A variable declared inside the current program unit<br><br><em>Explanation: A local variable is defined within a function/method/block and is only accessible within that specific scope.</em>
+    </div>
+</div>
+
+<!-- Question 107 -->
+<div class="question">
+    <h3>107. What is a nonlocal variable?</h3>
+    <div class="options">
+        <label><input type="radio" name="q107" value="a"> a) A variable that is never visible</label>
+        <label><input type="radio" name="q107" value="b"> b) A variable declared inside the current program unit only</label>
+        <label><input type="radio" name="q107" value="c"> c) A variable visible in a program unit but declared elsewhere</label>
+        <label><input type="radio" name="q107" value="d"> d) A variable that exists only during execution</label>
+    </div>
+    <div class="answer-box" id="answer107" data-correct-answer="c" data-explanation="A nonlocal variable is accessible in a scope but declared in an enclosing (outer) scope, not locally.">
+        Correct Answer: c) A variable visible in a program unit but declared elsewhere<br><br><em>Explanation: A nonlocal variable is accessible in a scope but declared in an enclosing (outer) scope, not locally.</em>
+    </div>
+</div>
+
+<!-- Question 108 -->
+<div class="question">
+    <h3>108. Which statement about global variables is correct?</h3>
+    <div class="options">
+        <label><input type="radio" name="q108" value="a"> a) They are a special category of local variables</label>
+        <label><input type="radio" name="q108" value="b"> b) They are visible only inside one program unit</label>
+        <label><input type="radio" name="q108" value="c"> c) They are a special category of nonlocal variables</label>
+        <label><input type="radio" name="q108" value="d"> d) They cannot be accessed by program units</label>
+    </div>
+    <div class="answer-box" id="answer108" data-correct-answer="c" data-explanation="Global variables are nonlocal variables declared at the outermost scope, accessible from anywhere in the program (unless hidden).">
+        Correct Answer: c) They are a special category of nonlocal variables<br><br><em>Explanation: Global variables are nonlocal variables declared at the outermost scope, accessible from anywhere in the program (unless hidden).</em>
+    </div>
+</div>
+
+<!-- Question 109 -->
+<div class="question">
+    <h3>109. In static scoping, how is a variable reference resolved?</h3>
+    <div class="options">
+        <label><input type="radio" name="q109" value="a"> a) Searching dynamically at runtime through the calling functions</label>
+        <label><input type="radio" name="q109" value="b"> b) Searching declarations in the source code from local to enclosing scopes</label>
+        <label><input type="radio" name="q109" value="c"> c) Always using the variable with the same name in the outermost scope</label>
+        <label><input type="radio" name="q109" value="d"> d) Choosing the variable with the most recent value in memory</label>
+    </div>
+    <div class="answer-box" id="answer109" data-correct-answer="b" data-explanation="Static (lexical) scoping resolves names by looking at the program's text structure: first locally, then in enclosing scopes outward.">
+        Correct Answer: b) Searching declarations in the source code from local to enclosing scopes<br><br><em>Explanation: Static (lexical) scoping resolves names by looking at the program's text structure: first locally, then in enclosing scopes outward.</em>
+    </div>
+</div>
+
+<!-- Question 110 -->
+<div class="question">
+    <h3>110. What happens when a variable with the same name exists in a closer (inner) scope?</h3>
+    <div class="options">
+        <label><input type="radio" name="q110" value="a"> a) The outer variable is always used, ignoring the inner one</label>
+        <label><input type="radio" name="q110" value="b"> b) The inner variable hides the outer variable</label>
+        <label><input type="radio" name="q110" value="c"> c) Both inner and outer variables are merged into one</label>
+        <label><input type="radio" name="q110" value="d"> d) The program crashes or throws a scope error</label>
+    </div>
+    <div class="answer-box" id="answer110" data-correct-answer="b" data-explanation="In most languages, an inner declaration shadows/hides the outer declaration of the same name (variable hiding).">
+        Correct Answer: b) The inner variable hides the outer variable<br><br><em>Explanation: In most languages, an inner declaration shadows/hides the outer declaration of the same name (variable hiding).</em>
+    </div>
+</div>
+
+<!-- Question 111 -->
+<div class="question">
+    <h3>111. What is the purpose of blocks in PLs?</h3>
+    <div class="options">
+        <label><input type="radio" name="q111" value="a"> a) To create dynamic memory at runtime</label>
+        <label><input type="radio" name="q111" value="b"> b) To create static scopes inside program units</label>
+        <label><input type="radio" name="q111" value="c"> c) To declare global variables only</label>
+        <label><input type="radio" name="q111" value="d"> d) To merge all variables into one scope</label>
+    </div>
+    <div class="answer-box" id="answer111" data-correct-answer="b" data-explanation="Blocks (enclosed by {}) create nested lexical scopes, allowing local variables that don't interfere with outer scopes.">
+        Correct Answer: b) To create static scopes inside program units<br><br><em>Explanation: Blocks (enclosed by {}) create nested lexical scopes, allowing local variables that don't interfere with outer scopes.</em>
+    </div>
+</div>
+
+<!-- Question 112 -->
+<div class="question">
+    <h3>112. What is true about declaring variables in nested blocks in C#?</h3>
+    <div class="options">
+        <label><input type="radio" name="q112" value="a"> a) An inner variable can hide an outer variable</label>
+        <label><input type="radio" name="q112" value="b"> b) Variables can have the same name anywhere without restriction</label>
+        <label><input type="radio" name="q112" value="c"> c) Declaring variable with same name as an outer variable is not allowed</label>
+        <label><input type="radio" name="q112" value="d"> d) The outer variable is automatically deleted</label>
+    </div>
+    <div class="answer-box" id="answer112" data-correct-answer="c" data-explanation="C# prohibits hiding variables in nested scopes to avoid confusion. You cannot declare a local variable with the same name as one in an outer scope.">
+        Correct Answer: c) Declaring variable with same name as an outer variable is not allowed<br><br><em>Explanation: C# prohibits hiding variables in nested scopes to avoid confusion. You cannot declare a local variable with the same name as one in an outer scope.</em>
+    </div>
+</div>
+
+<!-- Question 113 -->
+<div class="question">
+    <h3>113. What is the output of the following code?</h3>
+    <div class="code-block">
+        <pre>x = 10 # global
+def f():
+    global x
+    x += 5
+f()
+print(x)</pre>
+    </div>
+    <div class="options">
+        <label><input type="radio" name="q113" value="a"> a) 10</label>
+        <label><input type="radio" name="q113" value="b"> b) 5</label>
+        <label><input type="radio" name="q113" value="c"> c) 15</label>
+        <label><input type="radio" name="q113" value="d"> d) UnboundLocalError</label>
+    </div>
+    <div class="answer-box" id="answer113" data-correct-answer="c" data-explanation="The 'global' keyword tells Python that 'x' inside f() refers to the global x, so x becomes 10+5=15.">
+        Correct Answer: c) 15<br><br><em>Explanation: The 'global' keyword tells Python that 'x' inside f() refers to the global x, so x becomes 10+5=15.</em>
+    </div>
+</div>
+
+<!-- Question 114 -->
+<div class="question">
+    <h3>114. What is the output of this code?</h3>
+    <div class="code-block">
+        <pre>x = 10 # global
+def f():
+    x += 5
+    print(x)
+
+f()</pre>
+    </div>
+    <div class="options">
+        <label><input type="radio" name="q114" value="a"> a) 10</label>
+        <label><input type="radio" name="q114" value="b"> b) 5</label>
+        <label><input type="radio" name="q114" value="c"> c) 15</label>
+        <label><input type="radio" name="q114" value="d"> d) UnboundLocalError</label>
+    </div>
+    <div class="answer-box" id="answer114" data-correct-answer="d" data-explanation="because the global keyword is not used, so
+Python thinks x is local inside the function.">
+        Correct Answer: d) UnboundLocalError<br><br><em>Explanation: because the global keyword is not used, so
+Python thinks x is local inside the function.</em>
+    </div>
+</div>
+
+<!-- Question 115 -->
+<div class="question">
+    <h3>115. In dynamic scoping, how is a variable reference resolved?</h3>
+    <div class="options">
+        <label><input type="radio" name="q115" value="a"> a) Searching the source code from top to bottom for the variable</label>
+        <label><input type="radio" name="q115" value="b"> b) Searching through the chain of subprogram calls that led to this point</label>
+        <label><input type="radio" name="q115" value="c"> c) Always using the first variable declared in the program</label>
+        <label><input type="radio" name="q115" value="d"> d) Using variable with the most recent value assigned anywhere in memory</label>
+    </div>
+    <div class="answer-box" id="answer115" data-correct-answer="b" data-explanation="Dynamic scoping uses the calling sequence at runtime: look in current function, then in the function that called it, etc.">
+        Correct Answer: b) Searching through the chain of subprogram calls that led to this point<br><br><em>Explanation: Dynamic scoping uses the calling sequence at runtime: look in current function, then in the function that called it, etc.</em>
+    </div>
+</div>
+
+<!-- Question 116 -->
+<div class="question">
+    <h3>116. What is an advantage of dynamic scoping?</h3>
+    <div class="options">
+        <label><input type="radio" name="q116" value="a"> a) Convenience in accessing variables from calling functions</label>
+        <label><input type="radio" name="q116" value="b"> b) Guarantees better memory usage</label>
+        <label><input type="radio" name="q116" value="c"> c) Ensures faster execution</label>
+        <label><input type="radio" name="q116" value="d"> d) Makes code type-safe</label>
+    </div>
+    <div class="answer-box" id="answer116" data-correct-answer="a" data-explanation="Dynamic scoping allows subprograms to access variables from their callers without explicit parameter passing, which can be convenient but risky.">
+        Correct Answer: a) Convenience in accessing variables from calling functions<br><br><em>Explanation: Dynamic scoping allows subprograms to access variables from their callers without explicit parameter passing, which can be convenient but risky.</em>
+    </div>
+</div>
+
+<!-- Note: Question 117 is missing in the original numbering -->
+
+<!-- Question 118 -->
+<div class="question">
+    <h3>118. What does the referencing environment of a statement refer to?</h3>
+    <div class="options">
+        <label><input type="radio" name="q118" value="a"> a) The memory location of all variables</label>
+        <label><input type="radio" name="q118" value="b"> b) The collection of all names visible in the statement</label>
+        <label><input type="radio" name="q118" value="c"> c) The type of each variable in the program</label>
+        <label><input type="radio" name="q118" value="d"> d) The execution time of the statement</label>
+    </div>
+    <div class="answer-box" id="answer118" data-correct-answer="b" data-explanation="The referencing environment includes all variables that are visible (in scope) at a particular point in the code.">
+        Correct Answer: b) The collection of all names visible in the statement<br><br><em>Explanation: The referencing environment includes all variables that are visible (in scope) at a particular point in the code.</em>
+    </div>
+</div>
+
+<!-- Question 119 -->
+<div class="question">
+    <h3>119. At Point B, under static scoping, which variables are visible and hidden?</h3>
+    <div class="code-block">
+        <pre>void alpha() {
+    int p, q;
+    . . . <--- Point A
+}
+void beta() {
+    int q, r;
+    . . . <--- Point B
+    alpha();
+}
+void main() {
+    int r, s;
+    . . . <--- Point C
+    beta();
+}</pre>
+    </div>
+    <div class="options">
+        <label><input type="radio" name="q119" value="a"> a) p of alpha, q and r of beta (q of alpha is hidden)</label>
+        <label><input type="radio" name="q119" value="b"> b) p and q of alpha, q and r of beta</label>
+        <label><input type="radio" name="q119" value="c"> c) p and q of alpha and r of beta (q of beta is hidden)</label>
+        <label><input type="radio" name="q119" value="d"> d) p of alpha, q of beta, r of main</label>
+    </div>
+    <div class="answer-box" id="answer119" data-correct-answer="a" data-explanation="At Point B (inside beta): beta's local q hides alpha's q, beta's r is visible, and alpha's p is not in scope (only alpha can see it). Wait, actually p of alpha is not visible at point B. Let's reconsider: Point B is in beta(), so only variables in beta and globals are visible. So only q and r of beta are visible. The correct answer seems to be that only q and r of beta are visible, but option a says 'p of alpha, q and r of beta' which would be incorrect. Given the answer key says 'a', there might be confusion in the question.">
+        Correct Answer: a) p of alpha, q and r of beta (q of alpha is hidden)<br><br><em>Explanation: According to the provided answer key, the answer is a. However, note that p of alpha should not be visible at point B under static scoping since beta() cannot see alpha()'s locals.</em>
+    </div>
+</div>
+
+<!-- Question 120 -->
+<div class="question">
+    <h3>120. At Point A, under dynamic scoping, which variables are visible and hidden?</h3>
+    <div class="code-block">
+        <pre>void alpha() {
+    int p, q;
+    . . . <--- Point A
+}
+void beta() {
+    int q, r;
+    . . . <--- Point B
+    alpha();
+}
+void main() {
+    int r, s;
+    . . . <--- Point C
+    beta();
+}</pre>
+    </div>
+    <div class="options">
+        <label><input type="radio" name="q120" value="a"> a) p of alpha, q of beta, r and s of main (r of beta, q of alpha are hidden)</label>
+        <label><input type="radio" name="q120" value="b"> b) p and q of alpha, q and r of beta</label>
+        <label><input type="radio" name="q120" value="c"> c) p and q of alpha, r of beta, s of main (r of main, q of beta are hidden)</label>
+        <label><input type="radio" name="q120" value="d"> d) q and r of beta, r and s of main</label>
+    </div>
+    <div class="answer-box" id="answer120" data-correct-answer="c" data-explanation="At Point A (inside alpha called from beta called from main): Under dynamic scoping, we look up call chain: alpha's p,q; then beta's r (hides main's r); then main's s; beta's q hides alpha's q; main's r hidden by beta's r.">
+        Correct Answer: c) p and q of alpha, r of beta, s of main (r of main, q of beta are hidden)<br><br><em>Explanation: Under dynamic scoping at Point A: alpha's p and q (local), then look in caller beta: beta's r visible (hides main's r), beta's q would hide alpha's q? Actually alpha's q is local so it hides outer q. Then main's s is visible. So visible: p (alpha), q (alpha), r (beta), s (main). Hidden: q (beta) hidden by q (alpha), r (main) hidden by r (beta).</em>
+    </div>
+</div>
+
+<!-- Question 121 -->
+<div class="question">
+    <h3>121. What is a named constant?</h3>
+    <div class="options">
+        <label><input type="radio" name="q121" value="a"> a) A variable that can change value anytime</label>
+        <label><input type="radio" name="q121" value="b"> b) A variable that is bound to a value only when it is bound to storage</label>
+        <label><input type="radio" name="q121" value="c"> c) A variable without a value</label>
+        <label><input type="radio" name="q121" value="d"> d) A variable that exists only in a function</label>
+    </div>
+    <div class="answer-box" id="answer121" data-correct-answer="b" data-explanation="A named constant (like 'const int MAX = 100;') is a variable whose value is fixed at binding time and cannot change thereafter.">
+        Correct Answer: b) A variable that is bound to a value only when it is bound to storage<br><br><em>Explanation: A named constant (like 'const int MAX = 100;') is a variable whose value is fixed at binding time and cannot change thereafter.</em>
+    </div>
+</div>
+
+<!-- Question 122 -->
+<div class="question">
+    <h3>122. Which of the following is an example of a named constant in Java?</h3>
+    <div class="options">
+        <label><input type="radio" name="q122" value="a"> a) int x = 5;</label>
+        <label><input type="radio" name="q122" value="b"> b) final int MAX = 100;</label>
+        <label><input type="radio" name="q122" value="c"> c) int[] arr = new int[10];</label>
+        <label><input type="radio" name="q122" value="d"> d) int y;</label>
+    </div>
+    <div class="answer-box" id="answer122" data-correct-answer="b" data-explanation="In Java, 'final' declares a constant variable that cannot be reassigned after initialization.">
+        Correct Answer: b) final int MAX = 100;<br><br><em>Explanation: In Java, 'final' declares a constant variable that cannot be reassigned after initialization.</em>
+    </div>
+</div>
+
+
+		
+
+            <!-- Continue with questions 13-123 in same format -->
+            <!-- Last question example -->
+            <div class="question">
+                <h3>123. Consider the following grammar:</h3>
+                <div class="grammar-block">
+                    &lt;S&gt; → &lt;A&gt; a &lt;B&gt; b<br>
+                    &lt;A&gt; → &lt;A&gt; b | b<br>
+                    &lt;B&gt; → a &lt;B&gt; | a
+                </div>
+                <p>Which of the following sentences are in the language generated by this grammar?</p>
+                <div class="options">
+                    <label><input type="radio" name="q123" value="a"> a) bab</label>
+                    <label><input type="radio" name="q123" value="b"> b) bbaab</label>
+                    <label><input type="radio" name="q123" value="c"> c) bbbaaa</label>
+                    <label><input type="radio" name="q123" value="d"> d) bbab</label>
+                </div>
+                <div class="answer-box" id="answer123" data-correct-answer="b" data-explanation="The grammar generates strings with: one or more 'b's from A, then 'a', then one or more 'a's from B, then 'b'. bbaab fits: bb (from A), a, a (from B), b.">
+                    Correct Answer: b) bbaab<br><br><em>Explanation: The grammar generates strings with: one or more 'b's from A, then 'a', then one or more 'a's from B, then 'b'. bbaab fits: bb (from A), a, a (from B), b.</em>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slides Section -->
+        <div class="slides-section hidden" id="slides-section">
+            <div class="slides-header">
+                سلايدات المادة - Lecture Slides
+            </div>
+            
+            <div class="pdf-controls">
+                <button class="pdf-btn active" onclick="loadLecture(0)">
+                    <span>📄</span> Lecture 2
+                </button>
+                <button class="pdf-btn" onclick="loadLecture(1)">
+                    <span>📄</span> Lecture 3
+                </button>
+                <button class="pdf-btn" onclick="loadLecture(2)">
+                    <span>📄</span> Lecture 4
+                </button>
+            </div>
+
+            <!-- Desktop PDF Viewer -->
+            <div class="pdf-viewer-container desktop-viewer">
+                <div class="pdf-viewer-header">
+                    <div class="pdf-viewer-title" id="pdf-title">Lecture 2</div>
+                    <div class="pdf-controls-small">
+                        <button class="pdf-nav-btn" onclick="downloadPdf()" title="Download">⤓</button>
+                    </div>
+                </div>
+                <div class="pdf-frame-container">
+                    <div class="pdf-loading" id="pdf-loading">
+                        <div class="pdf-loading-spinner"></div>
+                        <div class="pdf-loading-text">Loading PDF...</div>
+                    </div>
+                    <iframe class="pdf-frame" id="pdf-frame" src="Lecture2.pdf" frameborder="0"></iframe>
+                </div>
+            </div>
+
+<!-- Update the recordings section in the slides section -->
+<div class="recordings-container">
+    <div class="recordings-section" id="recordings-desktop">
+        <h3>🎥 تسجيلات الدكتور</h3>
+        <div class="recording-links" id="recordings-list-desktop">
+            <!-- Recording links will be dynamically inserted -->
+        </div>
+    </div>
+</div>
+
+            <!-- Mobile PDF List -->
+            <div class="mobile-pdf-list">
+                <!-- Lecture 2 -->
+                <div class="mobile-pdf-item">
+                    <div class="mobile-pdf-info">
+                        <div class="mobile-pdf-icon">📄</div>
+                        <div class="mobile-pdf-details">
+                            <div class="mobile-pdf-name">Lecture 2</div>
+                            <div class="mobile-pdf-size">PDF</div>
+                        </div>
+                    </div>
+                    <div class="mobile-pdf-actions">
+                        <button class="mobile-pdf-btn open-btn" onclick="openPdfMobile('Lecture2.pdf')">Open</button>
+                    </div>
+                </div>
+                
+                <!-- Lecture 3 -->
+                <div class="mobile-pdf-item">
+                    <div class="mobile-pdf-info">
+                        <div class="mobile-pdf-icon">📄</div>
+                        <div class="mobile-pdf-details">
+                            <div class="mobile-pdf-name">Lecture 3</div>
+                            <div class="mobile-pdf-size">PDF + Recordings</div>
+                        </div>
+                    </div>
+                    <div class="mobile-pdf-actions">
+                        <button class="mobile-pdf-btn open-btn" onclick="openPdfMobile('Lecture3.pdf')">Open PDF</button>
+                        <button class="mobile-pdf-btn record-btn" onclick="toggleMobileRecordings(1)">تسجيلات</button>
+                    </div>
+                    <div class="mobile-recordings" id="mobile-recordings-1">
+                        <a href="https://vento.so/view/46fd4f5d-bb3b-416e-83b2-e65db1366297?utm_medium=share" target="_blank" class="recording-link">تسجيل المحاضرة 3</a>
+                    </div>
+                </div>
+                
+                <!-- Lecture 4 -->
+                <div class="mobile-pdf-item">
+                    <div class="mobile-pdf-info">
+                        <div class="mobile-pdf-icon">📄</div>
+                        <div class="mobile-pdf-details">
+                            <div class="mobile-pdf-name">Lecture 4</div>
+                            <div class="mobile-pdf-size">PDF + Recordings</div>
+                        </div>
+                    </div>
+                    <div class="mobile-pdf-actions">
+                        <button class="mobile-pdf-btn open-btn" onclick="openPdfMobile('Lecture4.pdf')">Open PDF</button>
+                        <button class="mobile-pdf-btn record-btn" onclick="toggleMobileRecordings(2)">تسجيلات</button>
+                    </div>
+                    <div class="mobile-recordings" id="mobile-recordings-2">
+                        <a href="https://vento.so/view/3c453f76-23c1-46e8-96c0-f070df2be996?utm_medium=share" target="_blank" class="recording-link">تسجيل المحاضرة 4 - الجزء 1</a>
+                        <a href="https://vento.so/view/0a67f786-1946-4984-b653-bbc6dfe76cca?utm_medium=share" target="_blank" class="recording-link">تسجيل المحاضرة 4 - الجزء 2</a>
+                        <a href="https://vento.so/view/4eed1d59-7b73-4d92-81cb-197a82c061fe?utm_medium=share" target="_blank" class="recording-link">تسجيل المحاضرة 4 - الجزء 3</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <button class="btn" onclick="toggleSlides()">
+                    <span class="btn-icon">←</span> العودة للأسئلة
+                </button>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            دعواتكم للمساعد الخفي والعاملين على الموقع بالتوفيق والسداد والزوجة الصالحة
+        </div>
+    </div>
+
+    <script>
+        // Quiz Data - Answers for all 123 questions
+        const correctAnswers = {
+            q1: 'd', q2: 'b', q3: 'a', q4: 'c', q5: 'd', q6: 'b', q7: 'a',
+            q8: 'c', q9: 'd', q10: 'd', q11: 'b', q12: 'b', q13: 'a',
+            q14: 'a', q15: 'b', q16: 'c', q17: 'a', q18: 'b', q19: 'c',
+            q20: 'b', q21: 'c', q22: 'b', q23: 'c', q24: 'd', q25: 'b',
+            q26: 'b', q27: 'b', q28: 'c', q29: 'a', q30: 'b', q31: 'b',
+            q32: 'c', q33: 'c', q34: 'c', q35: 'b', q36: 'd', q37: 'a',
+            q38: 'd', q39: 'c', q40: 'c', q41: 'd', q42: 'a', q43: 'd',
+            q44: 'a', q45: 'b', q46: 'd', q47: 'c', q48: 'a', q49: 'c',
+            q50: 'a', q51: 'c', q52: 'a', q53: 'c', q54: 'a', q55: 'c',
+            q56: 'd', q57: 'a', q58: 'd', q59: 'b', q60: 'a', q61: 'd',
+            q62: 'a', q63: 'b', q64: 'b', q65: 'b', q66: 'b', q67: 'b',
+            q68: 'a', q69: 'c', q70: 'b', q71: 'd', q72: 'b', q73: 'b',
+            q74: 'b', q75: 'd', q76: 'b', q77: 'c', q78: 'c', q79: 'b',
+            q80: 'b', q81: 'b', q82: 'a', q83: 'd', q84: 'a', q85: 'c',
+            q86: 'c', q87: 'b', q88: 'c', q89: 'a', q90: 'a', q91: 'b',
+            q92: 'c', q93: 'd', q94: 'b', q95: 'b', q96: 'd', q97: 'c',
+            q98: 'b', q99: 'a', q100: 'b', q101: 'b', q102: 'b', q103: 'c',
+            q104: 'a', q105: 'b', q106: 'c', q107: 'c', q108: 'c', q109: 'b',
+            q110: 'b', q111: 'b', q112: 'c', q113: 'c', q114: 'd', q115: 'b',
+            q116: 'a', q118: 'b', q119: 'a', q120: 'c', q121: 'b', q122: 'b',
+            q123: 'b'
+        };
+
+        // Lectures data
+        const lectures = [
+            {
+                name: "Lecture 2",
+                pdf: "Lecture2.pdf",
+                hasRecordings: false,
+                recordings: []
+            },
+            {
+                name: "Lecture 3",
+                pdf: "Lecture3.pdf",
+                hasRecordings: true,
+                recordings: [
+                    { title: "تسجيل المحاضرة 3", url: "https://vento.so/view/46fd4f5d-bb3b-416e-83b2-e65db1366297?utm_medium=share" }
+                ]
+            },
+            {
+                name: "Lecture 4",
+                pdf: "Lecture4.pdf",
+                hasRecordings: true,
+                recordings: [
+                    { title: "تسجيل المحاضرة 4 - الجزء 1", url: "https://vento.so/view/3c453f76-23c1-46e8-96c0-f070df2be996?utm_medium=share" },
+                    { title: "تسجيل المحاضرة 4 - الجزء 2", url: "https://vento.so/view/0a67f786-1946-4984-b653-bbc6dfe76cca?utm_medium=share" },
+                    { title: "تسجيل المحاضرة 4 - الجزء 3", url: "https://vento.so/view/4eed1d59-7b73-4d92-81cb-197a82c061fe?utm_medium=share" }
+                ]
+            }
+        ];
+
+        let currentPdf = 'Lecture2.pdf';
+        let currentLectureIndex = 0;
+
+        // Quiz functionality
+        function resetQuiz() {
+            const radioButtons = document.querySelectorAll('input[type="radio"]');
+            radioButtons.forEach(radio => radio.checked = false);
+
+            const answerBoxes = document.querySelectorAll('.answer-box');
+            answerBoxes.forEach(box => {
+                box.style.display = 'none';
+                box.classList.remove('correct', 'incorrect');
+                // Restore original content
+                const originalHTML = box.getAttribute('data-original-html') || box.innerHTML;
+                box.innerHTML = originalHTML;
+            });
+
+            updateProgress();
+        }
+
+        function showAllAnswers() {
+    const questions = document.querySelectorAll('.question');
+    
+    questions.forEach(questionContainer => {
+        // Find the radio button that corresponds to the correct answer
+        const answerBox = questionContainer.querySelector('.answer-box');
+        if (!answerBox) return;
+
+        const correctAnswer = answerBox.getAttribute('data-correct-answer');
+        const explanation = answerBox.getAttribute('data-explanation') || '';
+        
+        // Find the specific radio input and check it
+        const correctInput = questionContainer.querySelector(`input[value="${correctAnswer}"]`);
+        if (correctInput) correctInput.checked = true;
+
+        // Display the answer box with the yellow explanation visible
+        answerBox.innerHTML = `
+            ✅ Correct Answer: ${correctAnswer}
+            <div class="explanation-container">
+                <div class="explanation-content" style="display:block;">
+                    ${explanation}
+                </div>
+            </div>
+        `;
+        answerBox.style.display = 'block';
+        answerBox.classList.add('correct');
+        answerBox.classList.remove('incorrect');
+    });
+    updateProgress();
+}
+
+        function hideAllAnswers() {
+            const answerBoxes = document.querySelectorAll('.answer-box');
+            answerBoxes.forEach(box => {
+                box.style.display = 'none';
+                box.classList.remove('correct', 'incorrect');
+            });
+        }
+
+        function updateProgress() {
+            const radioButtons = document.querySelectorAll('input[type="radio"]:checked');
+            const answeredCount = radioButtons.length;
+            const progressPercent = Math.round((answeredCount / 123) * 100);
+            
+            document.getElementById('answered-count').textContent = answeredCount;
+            document.getElementById('quiz-progress').style.width = `${progressPercent}%`;
+        }
+
+        // Theme toggle
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.getElementById('themeToggle');
+            
+            if(body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                themeToggle.innerHTML = '<span class="btn-icon">🌙</span> Dark Mode';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeToggle.innerHTML = '<span class="btn-icon">☀️</span> Light Mode';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Slides toggle
+        let slidesVisible = false;
+        function toggleSlides() {
+            const slidesSection = document.getElementById('slides-section');
+            const slidesToggle = document.getElementById('slidesToggle');
+            const questionsSection = document.getElementById('questions-section');
+            
+            if(!slidesVisible) {
+                slidesSection.classList.remove('hidden');
+                questionsSection.style.display = 'none';
+                slidesToggle.innerHTML = '<span class="btn-icon">📝</span> الأسئلة';
+                slidesVisible = true;
+                slidesSection.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                slidesSection.classList.add('hidden');
+                questionsSection.style.display = 'block';
+                slidesToggle.innerHTML = '<span class="btn-icon">📚</span> سلايدات المادة';
+                slidesVisible = false;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // PDF functionality
+        function loadPdf(pdfFile, title) {
+            currentPdf = pdfFile;
+            
+            // Update title
+            document.getElementById('pdf-title').textContent = title;
+            
+            // Show loading
+            const loading = document.getElementById('pdf-loading');
+            const frame = document.getElementById('pdf-frame');
+            
+            loading.style.display = 'flex';
+            frame.style.display = 'none';
+            
+            // Set iframe source
+            frame.src = pdfFile;
+            
+            // Wait for PDF to load
+            frame.onload = function() {
+                setTimeout(() => {
+                    loading.style.display = 'none';
+                    frame.style.display = 'block';
+                }, 500);
+            };
+        }
+
+        function loadLecture(index) {
+            currentLectureIndex = index;
+            const lecture = lectures[index];
+            
+            // Update active button
+            document.querySelectorAll('.pdf-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Load PDF
+            loadPdf(lecture.pdf, lecture.name);
+            
+            // Show/hide recordings
+            showRecordingsForLecture(index);
+        }
+
+        function showRecordingsForLecture(index) {
+            const lecture = lectures[index];
+            const desktopRecordings = document.getElementById('recordings-list-desktop');
+            const desktopSection = document.getElementById('recordings-desktop');
+            
+            if (lecture.hasRecordings) {
+                // Populate desktop recordings
+                desktopRecordings.innerHTML = '';
+                lecture.recordings.forEach(rec => {
+                    const link = document.createElement('a');
+                    link.href = rec.url;
+                    link.target = '_blank';
+                    link.className = 'recording-link';
+                    link.textContent = rec.title;
+                    desktopRecordings.appendChild(link);
+                });
+                desktopSection.style.display = 'block';
+            } else {
+                desktopSection.style.display = 'none';
+            }
+        }
+
+        function toggleMobileRecordings(index) {
+            const mobileRecordings = document.getElementById(`mobile-recordings-${index}`);
+            if (mobileRecordings.style.display === 'none' || !mobileRecordings.style.display) {
+                mobileRecordings.style.display = 'block';
+            } else {
+                mobileRecordings.style.display = 'none';
+            }
+        }
+
+        function downloadPdf() {
+            const link = document.createElement('a');
+            link.href = currentPdf;
+            link.download = currentPdf;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Mobile PDF functions
+        function openPdfMobile(pdfFile) {
+            window.open(pdfFile, '_blank');
+        }
+
+        // Event listeners for radio buttons
+        document.addEventListener('DOMContentLoaded', () => {
+            const radioButtons = document.querySelectorAll('input[type="radio"]');
+            radioButtons.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    const questionNumber = e.target.name.substring(1);
+                    const answerBox = document.getElementById(`answer${questionNumber}`);
+                    const questionContainer = e.target.closest('.question');
+                    
+                    // Store original content
+                    if (!answerBox.getAttribute('data-original-html')) {
+                        answerBox.setAttribute('data-original-html', answerBox.innerHTML);
+                    }
+                    
+                    const originalHTML = answerBox.getAttribute('data-original-html');
+                    const userAnswer = e.target.value;
+                    const correctAnswer = correctAnswers[`q${questionNumber}`];
+                    const explanation = answerBox.getAttribute('data-explanation') || '';
+
+                    // Clean old classes
+                    questionContainer.classList.remove('answered-correct', 'answered-incorrect');
+
+                    if (userAnswer === correctAnswer) {
+                        // CORRECT ANSWER
+                        answerBox.innerHTML = `
+                            ✅ Correct!
+                            <div class="explanation-container">
+                                <button class="btn-explanation" onclick="this.parentElement.querySelector('.explanation-content').style.display='block'; this.style.display='none';">
+                                    <span style="font-size:1.1em">💡</span> Show Explanation
+                                </button>
+                                <div class="explanation-content" style="display:none;">
+                                    ${explanation}
+                                </div>
+                            </div>
+                        `;
+                        answerBox.classList.add('correct');
+                        answerBox.classList.remove('incorrect');
+                    } else {
+                        // INCORRECT ANSWER
+                        answerBox.innerHTML = `
+                            ❌ Incorrect.
+                            <button class="btn-show-correct" onclick="this.nextElementSibling.style.display='block'; this.style.display='none';">
+                                Show Correct Choice
+                            </button>
+                            <div class="reveal-content" style="display:none; margin-top:10px;">
+                                <div style="margin-bottom:10px; font-weight:bold;">Correct Answer: ${correctAnswer}</div>
+                                <div class="explanation-content" style="display:block;">
+                                    ${explanation}
+                                </div>
+                            </div>
+                        `;
+                        answerBox.classList.add('incorrect');
+                        answerBox.classList.remove('correct');
+                    }
+                    answerBox.style.display = 'block';
+                    
+                    updateProgress();
+                });
+            });
+
+            // Initialize theme
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const themeToggle = document.getElementById('themeToggle');
+            
+            if(savedTheme === 'dark') {
+                document.body.setAttribute('data-theme', 'dark');
+                themeToggle.innerHTML = '<span class="btn-icon">☀️</span> Light Mode';
+            }
+            
+            // Store original HTML for all answer boxes
+            const answerBoxes = document.querySelectorAll('.answer-box');
+            answerBoxes.forEach(box => {
+                if (!box.getAttribute('data-original-html')) {
+                    box.setAttribute('data-original-html', box.innerHTML);
+                }
+            });
+            
+            // Initialize PDF viewer
+            const frame = document.getElementById('pdf-frame');
+            frame.onload = function() {
+                setTimeout(() => {
+                    document.getElementById('pdf-loading').style.display = 'none';
+                    frame.style.display = 'block';
+                }, 800);
+            };
+            
+            // Initialize recordings for first lecture
+            showRecordingsForLecture(0);
+        });
+    </script>
+</body>
+</html>
